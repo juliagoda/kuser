@@ -63,7 +63,7 @@ void KU_Global::init()
   delete mGroups;
 
   SID::setAlgRidBase( mCfg->samridbase() );
-  kDebug() << "Algorithmic RID base: " << SID::getAlgRidBase();
+  //qCDebug() << "Algorithmic RID base: " << SID::getAlgRidBase();
   switch ( mCfg->source() ) {
     case KU_PrefsBase::EnumSource::Files:
       mUsers = new KU_UserFiles( mCfg );

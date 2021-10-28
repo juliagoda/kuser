@@ -48,13 +48,13 @@ KU_MainWidget::KU_MainWidget() : KXmlGuiWindow(0)
   init();
   mv->slotTabChanged();
 
-  statusBar()->insertItem(i18n("Reading configuration"), 0);
+  statusBar()->showMessage(i18n("Reading configuration"), 0);
 
   setCentralWidget(mv);
 
   setupGUI();
 
-  statusBar()->changeItem(i18n("Ready"), 0);
+  statusBar()->showMessage(i18n("Ready"), 0);
 }
 
 KU_MainWidget::~KU_MainWidget()

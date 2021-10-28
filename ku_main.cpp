@@ -33,15 +33,19 @@
 #include "ku_misc.h"
 #include "ku_mainwidget.h"
 
+#include <klocale.h>
+#include <k4aboutdata.h>
+#include <KGlobal>
+
 static const char *description =
 	I18N_NOOP("KDE User Editor");
 
 int main(int argc, char **argv) 
 {
+    K4AboutData aboutData("kuser", 0, ki18n("KUser"), _KU_VERSION, ki18n(description), K4AboutData::License_GPL,
+                         ki18n("(c) 1997-2000, Denis Perchine\n(c) 2004, Szombathelyi György"), KLocalizedString(),
+                          "http://kde.org/applications/system/kuser/");
   
-  KAboutData aboutData("kuser", 0, ki18n("KUser"),
-    _KU_VERSION, ki18n(description), KAboutData::License_GPL, 
-    ki18n("(c) 1997-2000, Denis Perchine\n(c) 2004, Szombathelyi György"));
   aboutData.addAuthor(ki18n("Denis Perchine"), ki18n("kuser author"),
     "dyp@perchine.com", "http://www.perchine.com/dyp/");
   aboutData.addAuthor(ki18n("Szombathelyi György"), ki18n("kuser author"),
