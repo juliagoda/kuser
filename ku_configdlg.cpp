@@ -40,12 +40,12 @@
 #include "ui_ku_ldapsamba.h"
 #include "ui_ku_passwordpolicy.h"
 
-KU_ConfigDlg::KU_ConfigDlg( KCoreConfigSkeleton *config, QWidget *parent, const char *name ) :
+KU_ConfigDlg::KU_ConfigDlg( KConfigSkeleton *config, QWidget *parent, const char *name ) :
     KConfigDialog( parent, QLatin1String( name ), config),sambaui(0)
 {
   setFaceType(List);
-  setStandardButtons(QDialogButtonBox::RestoreDefaults | QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help );
-  //setDefaultButton(Ok);
+  setButtons(Default|Ok|Apply|Cancel|Help);
+  setDefaultButton(Ok);
   setModal(true);
   KTabWidget *page1 = new KTabWidget( this );
   {
@@ -142,7 +142,7 @@ void KU_ConfigDlg::slotQueryClicked()
   _url.setExtension( QLatin1String( "x-dir" ), QLatin1String( "base" ) );
   _url.setFilter( filter );
 
-  //kDebug() << "sendQuery url: " << _url.prettyUrl();
+  kDebug() << "sendQuery url: " << _url.prettyUrl();
   mLdif.startParsing();
   KIO::Job *job = KIO::get( _url, KIO::Reload, KIO::HideProgressInfo );
 //  job->addMetaData("no-auth-prompt","true");
@@ -152,7 +152,7 @@ void KU_ConfigDlg::slotQueryClicked()
     this, SLOT(loadResult(KJob*)) );
 
   mProg = new QProgressDialog( 0 );
-  mProg->setLabel( new QLabel(_url.toDisplayString()) );
+  mProg->setLabel( new QLabel(_url.prettyUrl()) );
   mProg->setValue( 0 );
   mProg->setMaximum( 1 );
   mProg->setAutoClose( false );

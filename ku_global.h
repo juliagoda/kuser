@@ -24,7 +24,6 @@
 
 #include "ku_user.h"
 #include "ku_group.h"
-#include <QLoggingCategory>
 
 class KU_Global {
 public:

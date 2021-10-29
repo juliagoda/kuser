@@ -46,10 +46,9 @@ KU_AddUser::KU_AddUser( KU_User &user, bool useprivategroup,
   QGroupBox *group = new QGroupBox(frontpage);
   group->setTitle(i18n("New Account Options"));
   QVBoxLayout *grouplayout = new QVBoxLayout( group );
-  //TO BE FIXED
-  //grouplayout->setMargin( marginHint() );
-  //grouplayout->setSpacing( spacingHint() );
-  grouplayout->addSpacing( group->fontMetrics().lineSpacing() );
+  grouplayout->setMargin( marginHint() );
+  grouplayout->setSpacing( spacingHint() );
+//  grouplayout->addSpacing( group->fontMetrics().lineSpacing() );
 
   createhome = new QCheckBox(i18n("Create home folder"), 0);
   createhome->setChecked(true);
