@@ -21,8 +21,9 @@
 
 #include "globals.h"
 
+#include <QApplication>
+
 #include <kiconloader.h>
-#include <kapplication.h>
 #include <kconfig.h>
 #include <klocale.h>
 #include <kcmdlineargs.h>
@@ -33,26 +34,38 @@
 #include "ku_misc.h"
 #include "ku_mainwidget.h"
 
+#include <klocale.h>
+#include <k4aboutdata.h>
+#include <KGlobal>
+
+#include <QMessageBox>
+#include <unistd.h>
+
 static const char *description =
 	I18N_NOOP("KDE User Editor");
 
 int main(int argc, char **argv) 
 {
+    QApplication a(argc, argv);
+    K4AboutData aboutData("kuser", 0, ki18n("KUser"), _KU_VERSION, ki18n(description), K4AboutData::License_GPL,
+                         ki18n("(c) 1997-2000, Denis Perchine\n(c) 2004, Szombathelyi György"), KLocalizedString(),
+                          "http://kde.org/applications/system/kuser/");
   
-  KAboutData aboutData("kuser", 0, ki18n("KUser"),
-    _KU_VERSION, ki18n(description), KAboutData::License_GPL, 
-    ki18n("(c) 1997-2000, Denis Perchine\n(c) 2004, Szombathelyi György"));
   aboutData.addAuthor(ki18n("Denis Perchine"), ki18n("kuser author"),
     "dyp@perchine.com", "http://www.perchine.com/dyp/");
   aboutData.addAuthor(ki18n("Szombathelyi György"), ki18n("kuser author"),
     "gyurco@freemail.hu");
-  KCmdLineArgs::init(argc, argv, &aboutData);
+  KAboutData::setApplicationData(aboutData);
   KU_MainWidget *mw = 0;
 
-  KApplication a;
   KGlobal::locale()->insertCatalog( QLatin1String( "libkldap" ));
   KConfigGroup group( KGlobal::config(), "general" );
   KU_Global::initCfg( group.readEntry( "connection", "default" ) );
+
+  if(getuid()) {
+    QMessageBox::critical(0, i18n("KDE User Manager"), i18n("This application needs to be run with root privileges."), QMessageBox::Ok, QMessageBox::Ok);
+    return 1;
+  }
 
   mw = new KU_MainWidget();
   mw->setCaption(i18n("KDE User Manager"));

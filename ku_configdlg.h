@@ -44,7 +44,7 @@ struct KU_SambaDomain {
 class KU_ConfigDlg : public KConfigDialog {
   Q_OBJECT
 public:
-  KU_ConfigDlg( KConfigSkeleton *config, QWidget* parent, const char * name = 0 );
+  KU_ConfigDlg( KCoreConfigSkeleton *config, QWidget* parent, const char * name = 0 );
   ~KU_ConfigDlg();
 private:
   QProgressDialog *mProg;

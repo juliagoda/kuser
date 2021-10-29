@@ -349,13 +349,13 @@ KU_EditUser::KU_EditUser( const QList<int> &selected,
   KPageDialog( parent)
 
 {
-  setCaption(i18n("User Properties"));
-  setButtons( Ok | Cancel);
-  setDefaultButton(Ok);
+  setWindowTitle(i18n("User Properties"));
+  setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+  //setDefaultButton(QDialogButtonBox::Ok);
   setFaceType(KPageDialog::Tabbed);
   mSelected = selected;
   if ( mSelected.count() > 1 )
-    setCaption( i18n("User Properties - %1 Selected Users", mSelected.count() ) );
+    setWindowTitle( i18n("User Properties - %1 Selected Users", mSelected.count() ) );
   else {
     mUser = KU_Global::users()->at( selected[0] );
     mSelected.clear();
@@ -372,9 +372,9 @@ KU_EditUser::KU_EditUser( KU_User &user, bool fixedprivgroup,
   KPageDialog(parent)
 
 {
-  setCaption(i18n("User Properties"));
-  setButtons(Ok | Cancel);
-  setDefaultButton( Ok);
+  setWindowTitle(i18n("User Properties"));
+  setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+  //setDefaultButton(QDialogButtonBox::Ok);
   setModal(true);
   setFaceType(KPageDialog::Tabbed);
 
