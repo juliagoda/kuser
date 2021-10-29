@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(kuser)
 
+set(VERSION "21.10.0-dev" )
+set(RELEASE_NAME "Bleeding Edge")
+
 # search packages used by KDE
 find_package(ECM 0.0.11 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
