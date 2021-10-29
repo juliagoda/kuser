@@ -19,7 +19,7 @@ include(KDECompilerSettings)
 include(FeatureSummary)
 
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
-find_package(KF5 REQUIRED COMPONENTS KDELibs4Support KIO Ldap)
+find_package(KF5 REQUIRED COMPONENTS KDELibs4Support KIO Su Ldap)
 
 
 include (MacroLibrary)
