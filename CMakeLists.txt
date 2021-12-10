@@ -1,19 +1,39 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(kuser)
 
+set(VERSION "21.10.0-dev" )
+set(RELEASE_NAME "Bleeding Edge")
+
 # search packages used by KDE
-find_package(KDE4 REQUIRED)
-include (KDE4Defaults)
+find_package(ECM 0.0.11 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+
+if(COMMAND cmake_policy)
+  cmake_policy(SET CMP0003 NEW)
+endif(COMMAND cmake_policy)
+
+
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(FeatureSummary)
+
+find_package(Qt5 REQUIRED COMPONENTS Widgets)
+find_package(KF5 REQUIRED COMPONENTS KDELibs4Support KIO Su Ldap)
+
+
 include (MacroLibrary)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+include(CheckIncludeFiles)
+
+#add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
 include_directories (${QDBUS_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
 
-find_package(KdepimLibs REQUIRED)
+#find_package(KdepimLibs REQUIRED)
 
 include(CheckFunctionExists)
 include(CheckIncludeFiles)
@@ -27,7 +47,7 @@ add_subdirectory(icon)
 add_subdirectory(doc)
 
 # use the project-specific _SOURCE_DIR variable (set by the project() call above), Alex
-include_directories(${kuser_SOURCE_DIR} ${KDEPIMLIBS_INCLUDE_DIR})
+include_directories(${kuser_SOURCE_DIR})
 
 set(KU_HOMEDIR_PERM 0700 CACHE STRING "Default home directory permissions")
 set(KU_MAILBOX_GID 0 CACHE STRING "Default GID of the created mbox file")
@@ -88,7 +108,7 @@ kde4_add_ui_files(kuser_SRCS ku_filessettings.ui ku_generalsettings.ui ku_ldapse
 
 kde4_add_executable(kuser ${kuser_SRCS})
 
-target_link_libraries(kuser ${KDE4_KIO_LIBS} ${KDE4_KLDAP_LIBS} ${KDE4_TARGET_PREFIX}kntlm)
+target_link_libraries(kuser KF5::KDELibs4Support KF5::KIONTLM KF5::Ldap)
 if(HAVE_CRYPT_LIBRARY)
 	target_link_libraries(kuser crypt)
 endif(HAVE_CRYPT_LIBRARY)

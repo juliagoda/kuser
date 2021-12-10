@@ -29,16 +29,16 @@
 KU_GroupLDAP::KU_GroupLDAP( KU_PrefsBase *cfg ) : KU_Groups( cfg )
 {
   if ( mCfg->ldapssl() )
-    mUrl.setProtocol(QLatin1String( "ldaps" ));
+    mUrl.setScheme(QLatin1String( "ldaps" ));
   else
-    mUrl.setProtocol(QLatin1String( "ldap" ));
+    mUrl.setScheme(QLatin1String( "ldap" ));
 
   mUrl.setHost( mCfg->ldaphost() );
   mUrl.setPort( mCfg->ldapport() );
   mUrl.setDn( KLDAP::LdapDN( mCfg->ldapgroupbase() + QLatin1Char( ',' ) + mCfg->ldapdn() ) );
   if ( !mCfg->ldapanon() ) {
-    mUrl.setUser( mCfg->ldapuser() );
-    mUrl.setPass( mCfg->ldappassword() );
+    mUrl.setUserName( mCfg->ldapuser() );
+    mUrl.setPassword( mCfg->ldappassword() );
     QString binddn = mCfg->ldapbinddn();
     if ( !binddn.isEmpty() )
       mUrl.setExtension( QLatin1String( "bindname" ),binddn );
