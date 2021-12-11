@@ -22,9 +22,10 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QGridLayout>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 #include <klocale.h>
-#include <kpushbutton.h>
 #include <kicon.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
@@ -34,11 +35,12 @@
 
 KU_EditGroup::KU_EditGroup(const KU_Group &group, bool add,
    QWidget* parent)
-  : KDialog(parent)
+  : QDialog(parent)
 {
-    setCaption( i18n("Group Properties") );
-    setButtons( Ok|Cancel );
-    setDefaultButton( Ok );
+    setWindowTitle(i18n("Group Properties"));
+    QDialogButtonBox * buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    QPushButton* ok_button = buttonBox->button(QDialogButtonBox::Ok);
+    ok_button->setAutoDefault(true);
 
   mAdd = add;
   mOldName = group.getName();
@@ -53,11 +55,10 @@ KU_EditGroup::KU_EditGroup(const KU_Group &group, bool add,
 
   QFrame *page = new QFrame( this );
   QGridLayout *layout = new QGridLayout( page );
-  layout->setSpacing( spacingHint() );
-  layout->setMargin( marginHint() );
+  layout->setSpacing( 3 );
+  layout->setMargin( 3 );
 
   QLabel *lb;
-  setMainWidget( page );
 
   lb = new QLabel( page );
   lb->setText(i18n("Group number:"));
@@ -323,9 +324,9 @@ void KU_EditGroup::accept()
     mGroup.setDisplayName( ledispname->text() );
   } else {
     mGroup.setCaps( 0 );
-    mGroup.setSID( SID( QString::null ) );	//krazy:exclude=nullstrassign for old broken gcc
-    mGroup.setDesc( QString::null );		//krazy:exclude=nullstrassign for old broken gcc
-    mGroup.setDisplayName( QString::null );	//krazy:exclude=nullstrassign for old broken gcc
+    mGroup.setSID( SID( QString() ) );	//krazy:exclude=nullstrassign for old broken gcc
+    mGroup.setDesc( QString() );		//krazy:exclude=nullstrassign for old broken gcc
+    mGroup.setDisplayName( QString() );	//krazy:exclude=nullstrassign for old broken gcc
     mGroup.setType( 0 );
   }
 

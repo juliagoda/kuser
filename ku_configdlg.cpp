@@ -24,12 +24,12 @@
 #include <kcombobox.h>
 #include <kmessagebox.h>
 #include <klineedit.h>
-#include <knuminput.h>
-#include <kpushbutton.h>
+#include <QPushButton>
 #include <ktabwidget.h>
 #include <kldap/ldapconfigwidget.h>
 #include <kldap/ldapurl.h>
 #include <klocale.h>
+#include <QDialogButtonBox>
 
 #include "ku_configdlg.h"
 #include "ku_misc.h"
@@ -61,10 +61,10 @@ KU_ConfigDlg::KU_ConfigDlg( KCoreConfigSkeleton *config, QWidget *parent, const 
     QFrame *frame = new QFrame ( page1 );
     ui.setupUi( frame );
     page1->addTab( frame, i18n("Password Policy") );
-    ui.kcfg_smax->setSuffix(ki18np(" day", " days"));
-    ui.kcfg_sinact->setSuffix(ki18np(" day", " days"));
-    ui.kcfg_swarn->setSuffix(ki18np(" day", " days"));
-    ui.kcfg_smin->setSuffix(ki18np(" day", " days"));
+    ui.kcfg_smax->setSuffix(i18np(" day", " days"));
+    ui.kcfg_sinact->setSuffix(i18np(" day", " days"));
+    ui.kcfg_swarn->setSuffix(i18np(" day", " days"));
+    ui.kcfg_smin->setSuffix(i18np(" day", " days"));
   }
   addPage( page1, i18n("General"), QLatin1String( "kuser" ), i18n("General Settings") );
 

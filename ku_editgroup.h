@@ -27,13 +27,13 @@
 #include <QList>
 #include <QTreeWidget>
 
-#include <kdialog.h>
+#include <QDialog>
 #include <kcombobox.h>
 #include <klineedit.h>
 
 #include "ku_group.h"
 
-class KU_EditGroup : public KDialog
+class KU_EditGroup : public QDialog
 {
   Q_OBJECT
 public:

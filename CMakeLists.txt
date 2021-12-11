@@ -3,37 +3,37 @@ project(kuser)
 
 set(VERSION "21.10.0-dev" )
 set(RELEASE_NAME "Bleeding Edge")
+set (QT_MIN_VERSION "5.15")
 
 # search packages used by KDE
-find_package(ECM 0.0.11 REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+find_package(ECM 1.3.0 REQUIRED NO_MODULE)
+set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}/modules" ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
 
+include(CheckIncludeFiles)
 include(KDEInstallDirs)
+include(ECMInstallIcons)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(FeatureSummary)
 
-find_package(Qt5 REQUIRED COMPONENTS Widgets)
-find_package(KF5 REQUIRED COMPONENTS KDELibs4Support KIO Su Ldap)
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Widgets Gui Core)
+find_package(KF5 REQUIRED COMPONENTS KIO Su Ldap DocTools Completion I18n CoreAddons XmlGui Config)
 
 
-include (MacroLibrary)
+#include (MacroLibrary)
 
 include(CheckIncludeFiles)
 
-#add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
-include_directories (${QDBUS_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
-
-#find_package(KdepimLibs REQUIRED)
+include_directories (${QDBUS_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 
 include(CheckFunctionExists)
 include(CheckIncludeFiles)
@@ -102,13 +102,13 @@ set(kuser_SRCS
 	ku_selectconn.cpp
 )
 
-kde4_add_kcfg_files(kuser_SRCS ku_prefs.kcfgc)
+kconfig_add_kcfg_files(kuser_SRCS ku_prefs.kcfgc)
 
-kde4_add_ui_files(kuser_SRCS ku_filessettings.ui ku_generalsettings.ui ku_ldapsettings.ui ku_ldapsamba.ui ku_passwordpolicy.ui)
+qt5_wrap_ui(kuser_SRCS ku_filessettings.ui ku_generalsettings.ui ku_ldapsettings.ui ku_ldapsamba.ui ku_passwordpolicy.ui)
 
-kde4_add_executable(kuser ${kuser_SRCS})
+add_executable(kuser ${kuser_SRCS})
 
-target_link_libraries(kuser KF5::KDELibs4Support KF5::KIONTLM KF5::Ldap)
+target_link_libraries(kuser KF5::DocTools KF5::KIONTLM KF5::Ldap KF5::Su Qt5::Widgets KF5::Completion KF5::I18n KF5::CoreAddons KF5::XmlGui KF5::ConfigCore KF5::ConfigGui)
 if(HAVE_CRYPT_LIBRARY)
 	target_link_libraries(kuser crypt)
 endif(HAVE_CRYPT_LIBRARY)

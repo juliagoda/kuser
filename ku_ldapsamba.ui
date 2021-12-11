@@ -169,7 +169,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="domQuery" >
+      <widget class="QPushButton" name="domQuery" >
        <property name="enabled" >
         <bool>false</bool>
        </property>
@@ -222,7 +222,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KIntSpinBox" name="kcfg_samridbase" >
+      <widget class="QSpinBox" name="kcfg_samridbase" >
        <property name="maximum" >
         <number>65000</number>
        </property>
@@ -275,20 +275,6 @@
    <class>KLineEdit</class>
    <extends></extends>
    <header>klineedit.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends></extends>
-   <header>kpushbutton.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends></extends>
-   <header>knuminput.h</header>
    <container>0</container>
    <pixmap></pixmap>
   </customwidget>

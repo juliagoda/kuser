@@ -64,15 +64,15 @@ void KU_EditUser::addRow(QWidget *parent, QGridLayout *layout, int row,
    mNoChanges[ widget ] = nc;
 }
 
-KIntSpinBox *KU_EditUser::addDaysGroup(QWidget *parent, QGridLayout *layout, int row,
+QSpinBox *KU_EditUser::addDaysGroup(QWidget *parent, QGridLayout *layout, int row,
   const QString &title, bool never)
 {
-    KIntSpinBox *days;
+    QSpinBox *days;
 
     QLabel *label = new QLabel( title, parent );
     layout->addWidget( label, row, 0, 1, 2, Qt::AlignRight );
 
-    days = new KIntSpinBox( parent );
+    days = new QSpinBox( parent );
     label->setBuddy( days );
     days->setSuffix( i18n(" days") );
     days->setMaximum( 99999 );
@@ -253,7 +253,7 @@ void KU_EditUser::initDlg()
     */
     QLabel *label = new QLabel( i18n("&Account will expire on:"), frame );
     layout->addWidget( label, row, 0 );
-    lesexpire = new KDateTimeWidget( frame );
+    lesexpire = new QDateTimeEdit( frame );
     label->setBuddy( lesexpire );
     layout->addWidget( lesexpire, row, 1, 1, 2 );
 
@@ -447,7 +447,7 @@ void KU_EditUser::setCB( QCheckBox *cb, bool val, bool first )
   }
 }
 
-void KU_EditUser::setSB( KIntSpinBox *sb, int val, bool first )
+void KU_EditUser::setSB( QSpinBox *sb, int val, bool first )
 {
   if ( first ) {
     sb->setValue( val );
@@ -715,7 +715,7 @@ QString KU_EditUser::mergeLE( KLineEdit *le, const QString &val, bool one )
   return ( one || ( cb && !cb->isChecked() ) ) ? le->text() : val;
 }
 
-int KU_EditUser::mergeSB( KIntSpinBox *sb, int val, bool one )
+int KU_EditUser::mergeSB( QSpinBox *sb, int val, bool one )
 {
   QCheckBox *cb = 0;
   if ( mNoChanges.contains( sb ) ) cb = mNoChanges[ sb ];

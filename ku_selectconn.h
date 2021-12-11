@@ -20,10 +20,11 @@
 #ifndef _KU_SELECTCONN_H_
 #define _KU_SELECTCONN_H_
 
-#include <kdialog.h>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <kcombobox.h>
 
-class KU_SelectConn : public KDialog {
+class KU_SelectConn : public QDialog {
   Q_OBJECT
 public:
   KU_SelectConn( const QString &selected, QWidget* parent );
@@ -39,6 +40,7 @@ protected slots:
 protected:
   KComboBox *mCombo;
   QString conn, newconn, mSelected;
+  QDialogButtonBox * button_box;
 };
 
 #endif // _KU_SELECTCONN_H_

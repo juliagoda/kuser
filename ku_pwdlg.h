@@ -24,9 +24,9 @@
 
 
 #include <klineedit.h>
-#include <kdialog.h>
+#include <QDialog>
 
-class KU_PwDlg : public KDialog {
+class KU_PwDlg : public QDialog {
   Q_OBJECT
 
 public:

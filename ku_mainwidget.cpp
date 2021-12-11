@@ -32,6 +32,7 @@
 #include <kstatusbar.h>
 #include <kedittoolbar.h>
 #include <kicon.h>
+#include <QStatusBar>
 
 #include "ku_global.h"
 #include "ku_configdlg.h"
@@ -75,39 +76,39 @@ void KU_MainWidget::setupActions()
   KStandardAction::preferences(this, SLOT(properties()), actionCollection());
   QAction *action;
 
-  action  = new KAction(KIcon( QLatin1String( "list-add-user") ), i18n("&Add..." ), this);
+  action  = new QAction(KIcon( QLatin1String( "list-add-user") ), i18n("&Add..." ), this);
   actionCollection()->addAction( QLatin1String( "add_user" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(useradd()) );
 
-  action  = new KAction(KIcon( QLatin1String( "user-properties") ), i18n("&Edit..." ), this);
+  action  = new QAction(KIcon( QLatin1String( "user-properties") ), i18n("&Edit..." ), this);
   actionCollection()->addAction( QLatin1String( "edit_user" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(useredit()) );
 
-  action  = new KAction(KIcon( QLatin1String( "list-remove-user") ), i18n("&Delete..." ), this);
+  action  = new QAction(KIcon( QLatin1String( "list-remove-user") ), i18n("&Delete..." ), this);
   actionCollection()->addAction( QLatin1String( "delete_user" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(userdel()) );
 
-  action  = new KAction(KIcon( QLatin1String( "preferences-desktop-user-password") ), i18n("&Set Password..." ), this);
+  action  = new QAction(KIcon( QLatin1String( "preferences-desktop-user-password") ), i18n("&Set Password..." ), this);
   actionCollection()->addAction( QLatin1String( "set_password_user" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(setpwd()) );
 
-  action  = new KAction(KIcon( QLatin1String( "user-group-new") ) , i18n("&Add..." ), this);
+  action  = new QAction(KIcon( QLatin1String( "user-group-new") ) , i18n("&Add..." ), this);
   actionCollection()->addAction( QLatin1String( "add_group" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(grpadd()) );
 
-  action  = new KAction(KIcon( QLatin1String( "user-group-properties") ), i18n("&Edit..." ), this);
+  action  = new QAction(KIcon( QLatin1String( "user-group-properties") ), i18n("&Edit..." ), this);
   actionCollection()->addAction( QLatin1String( "edit_group" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(grpedit()) );
 
-  action  = new KAction(KIcon( QLatin1String( "user-group-delete") ), i18n("&Delete..." ), this);
+  action  = new QAction(KIcon( QLatin1String( "user-group-delete") ), i18n("&Delete..." ), this);
   actionCollection()->addAction( QLatin1String( "delete_group" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(grpdel()) );
 
-  action  = new KAction(KIcon( QLatin1String( "view-refresh") ), i18n("&Reload..." ), this);
+  action  = new QAction(KIcon( QLatin1String( "view-refresh") ), i18n("&Reload..." ), this);
   actionCollection()->addAction( QLatin1String( "reload" ), action );
   connect( action, SIGNAL(triggered(bool)), this, SLOT(reload()) );
 
-  action  = new KAction(i18n("&Select Connection..."), this);
+  action  = new QAction(i18n("&Select Connection..."), this);
   actionCollection()->addAction( QLatin1String( "select_conn" ), action );
   connect( action, SIGNAL(triggered(bool)), this, SLOT(selectconn()) );
 

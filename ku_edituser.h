@@ -29,10 +29,10 @@
 #include <QGridLayout>
 #include <QList>
 #include <QListWidget>
+#include <QSpinBox>
 
 #include <klineedit.h>
-#include <kdatetimewidget.h>
-#include <knuminput.h>
+#include <QDateTimeEdit>
 #include <kcombobox.h>
 #include <kpagedialog.h>
 #include "ku_user.h"
@@ -72,11 +72,11 @@ protected:
   bool two_column=true, bool nochange=true );
   void setLE( KLineEdit *le, const QString &val, bool first );
   void setCB( QCheckBox *cb, bool val, bool first );
-  void setSB( KIntSpinBox *sb, int val, bool first );
+  void setSB( QSpinBox *sb, int val, bool first );
   QString mergeLE( KLineEdit *le, const QString &val, bool one );
-  int mergeSB( KIntSpinBox *sb, int val, bool one );
+  int mergeSB( QSpinBox *sb, int val, bool one );
 
-  KIntSpinBox *addDaysGroup( QWidget  *parent, QGridLayout *layout, int row,
+  QSpinBox *addDaysGroup( QWidget  *parent, QGridLayout *layout, int row,
     const QString &title, bool never=true );
 
   QFrame *frontpage;
@@ -126,11 +126,11 @@ protected:
   QPushButton *pbprigr;
 
   QLabel *leslstchg;
-  KIntSpinBox *lesmin;
-  KIntSpinBox *lesmax;
-  KIntSpinBox *leswarn;
-  KIntSpinBox *lesinact;
-  KDateTimeWidget  *lesexpire;
+  QSpinBox *lesmin;
+  QSpinBox *lesmax;
+  QSpinBox *leswarn;
+  QSpinBox *lesinact;
+  QDateTimeEdit  *lesexpire;
   QCheckBox *cbexpire;
 
 //samba specific:

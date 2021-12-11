@@ -23,18 +23,21 @@
 
 #include <QLabel>
 #include <QGridLayout>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 #include <kmessagebox.h>
 #include <klocale.h>
 
 KU_PwDlg::KU_PwDlg( QWidget* parent )
-  : KDialog(parent)
+  : QDialog(parent)
 {
-  setCaption(i18n("Enter Password"));
-  setButtons(Ok | Cancel);
-  setDefaultButton(Ok);
+  setWindowTitle(i18n("Enter Password"));
+  QDialogButtonBox * buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+  QPushButton* ok_button = buttonBox->button(QDialogButtonBox::Ok);
+  ok_button->setAutoDefault(true);
+
   QFrame *page = new QFrame( this );
-  setMainWidget( page );
   QLabel* lb1 = new QLabel(page);
   lb1->setText(i18n("Password:"));
   lb1->setMinimumSize(lb1->sizeHint());
@@ -88,7 +91,7 @@ void KU_PwDlg::accept()
     lepw2->clear();
     lepw1->setFocus();
   } else {
-    KDialog::accept();
+    QDialog::accept();
   }
 }
 

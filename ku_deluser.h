@@ -21,12 +21,12 @@
 #ifndef _KU_DELUSER_H_
 #define _KU_DELUSER_H_
 
-#include <kdialog.h>
+#include <QDialog>
 #include <QCheckBox>
 
 #include "ku_user.h"
 
-class KU_DelUser: public KDialog {
+class KU_DelUser: public QDialog {
   Q_OBJECT
 public:
   KU_DelUser(KU_User *AUser, QWidget *parent = 0);

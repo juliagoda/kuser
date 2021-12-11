@@ -23,26 +23,31 @@
 
 #include <QLabel>
 #include <QFile>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include <kvbox.h>
 #include <klocale.h>
-#include <KStandardGuiItem>
 
 KU_DelUser::KU_DelUser(KU_User *AUser, QWidget *parent)
- : KDialog( parent)
+ : QDialog( parent)
 {
-  setCaption(i18n("Delete User"));
-  setButtons(KDialog::Ok|KDialog::Cancel );
-  setDefaultButton(KDialog::Ok);
-  KVBox *page = new KVBox( this );
-  setMainWidget( page );
-  new QLabel( i18n("<p>Deleting user <b>%1</b>"
-                   "<br />Also perform the following actions:</p>", AUser->getName()),
-              page);
-  m_deleteHomeDir = new QCheckBox(i18n("Delete &home folder: %1", AUser->getHomeDir()), page);
+  setWindowTitle(i18n("Delete User"));
+  QDialogButtonBox * buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+  QPushButton* ok_button = buttonBox->button(QDialogButtonBox::Ok);
+  ok_button->setAutoDefault(true);
+
+  QVBoxLayout *page = new QVBoxLayout(this);
+  QLabel* label = new QLabel( i18n("<p>Deleting user <b>%1</b>"
+                   "<br />Also perform the following actions:</p>", AUser->getName()));
+  page->addWidget(label);
+  m_deleteHomeDir = new QCheckBox(i18n("Delete &home folder: %1", AUser->getHomeDir()));
+  page->addWidget(m_deleteHomeDir);
   QString mailboxpath = QFile::decodeName(MAIL_SPOOL_DIR) + QLatin1Char( '/' ) + AUser->getName();
-  m_deleteMailBox = new QCheckBox(i18n("Delete &mailbox: %1", mailboxpath), page);
-  setButtonGuiItem(KDialog::Ok, KStandardGuiItem::del());
+  m_deleteMailBox = new QCheckBox(i18n("Delete &mailbox: %1", mailboxpath));
+  page->addWidget(m_deleteHomeDir);
+  page->addWidget(buttonBox);
 }
 
 #include "ku_deluser.moc"

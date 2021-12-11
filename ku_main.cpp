@@ -23,6 +23,7 @@
 
 #include <QApplication>
 
+#include <KLocalizedString>
 #include <kiconloader.h>
 #include <kconfig.h>
 #include <klocale.h>
@@ -35,8 +36,8 @@
 #include "ku_mainwidget.h"
 
 #include <klocale.h>
-#include <k4aboutdata.h>
-#include <KGlobal>
+#include <KAboutData>
+#include <QApplication>
 
 #include <QMessageBox>
 #include <unistd.h>
@@ -47,19 +48,25 @@ static const char *description =
 int main(int argc, char **argv) 
 {
     QApplication a(argc, argv);
-    K4AboutData aboutData("kuser", 0, ki18n("KUser"), _KU_VERSION, ki18n(description), K4AboutData::License_GPL,
-                         ki18n("(c) 1997-2000, Denis Perchine\n(c) 2004, Szombathelyi György"), KLocalizedString(),
-                          "http://kde.org/applications/system/kuser/");
+    KAboutData aboutData(
+                             QStringLiteral("kuser"),
+                             i18n("KUser"),
+                             QStringLiteral(_KU_VERSION),
+                             i18n(description),
+                             KAboutLicense::LGPL,
+                             i18n("(c) 1997-2000, Denis Perchine\n(c) 2004, Szombathelyi György"),
+                             i18n(""),
+                             QStringLiteral("http://kde.org/applications/system/kuser/"));
   
-  aboutData.addAuthor(ki18n("Denis Perchine"), ki18n("kuser author"),
-    "dyp@perchine.com", "http://www.perchine.com/dyp/");
-  aboutData.addAuthor(ki18n("Szombathelyi György"), ki18n("kuser author"),
-    "gyurco@freemail.hu");
+  aboutData.addAuthor(QStringLiteral("Denis Perchine"), QStringLiteral("kuser author"),
+    QStringLiteral("dyp@perchine.com"), QStringLiteral("http://www.perchine.com/dyp/"));
+  aboutData.addAuthor(QStringLiteral("Szombathelyi György"), QStringLiteral("kuser author"),
+    QStringLiteral("gyurco@freemail.hu"));
   KAboutData::setApplicationData(aboutData);
   KU_MainWidget *mw = 0;
 
   KGlobal::locale()->insertCatalog( QLatin1String( "libkldap" ));
-  KConfigGroup group( KGlobal::config(), "general" );
+  KConfigGroup group( KSharedConfig::openConfig(), "general" );
   KU_Global::initCfg( group.readEntry( "connection", "default" ) );
 
   if(getuid()) {
