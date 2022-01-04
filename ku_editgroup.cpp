@@ -25,9 +25,10 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 
-#include <klocale.h>
-#include <kicon.h>
-#include <kdebug.h>
+#include <QLocale>
+#include <QIcon>
+#include <QDebug>
+#include <KI18n/KLocalizedString>
 #include <kmessagebox.h>
 
 #include "ku_global.h"
@@ -65,7 +66,7 @@ KU_EditGroup::KU_EditGroup(const KU_Group &group, bool add,
   legid = new KLineEdit(page);
   // ensure it fits at least 20 characters
   legid->setText( QLatin1String( "XXXXXXXXXXXXXXXXXXX" ));
-  kDebug() << "gid: " << group.getGID();
+  qDebug() << "gid: " << group.getGID();
   legid->setText( QString::number(group.getGID()) );
   legid->setValidator( new QIntValidator(this) );
   legid->setEnabled( mAdd );
@@ -176,8 +177,8 @@ KU_EditGroup::KU_EditGroup(const KU_Group &group, bool add,
   layout->addWidget( m_list_in, 8, 0 );
 
   QWidget *vbox = new QWidget;
-  QPushButton *btadd = new QPushButton(KIcon( QLatin1String( "list-add") ) , i18n("Add" ), vbox);
-  QPushButton *btdel = new QPushButton(KIcon( QLatin1String( "list-remove" )), i18n("Remove" ), vbox);
+  QPushButton *btadd = new QPushButton(QIcon( QLatin1String( "list-add") ) , i18n("Add" ), vbox);
+  QPushButton *btdel = new QPushButton(QIcon( QLatin1String( "list-remove" )), i18n("Remove" ), vbox);
 
   QVBoxLayout *vlayout = new QVBoxLayout;
   vlayout->addWidget(btadd);

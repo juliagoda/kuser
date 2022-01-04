@@ -24,7 +24,7 @@
 #include <errno.h>
 #include <grp.h>
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include "ku_misc.h"
 

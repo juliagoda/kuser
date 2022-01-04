@@ -26,9 +26,9 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <KI18n/KLocalizedString>
 
-#include <kvbox.h>
-#include <klocale.h>
+#include <QLocale>
 
 KU_DelUser::KU_DelUser(KU_User *AUser, QWidget *parent)
  : QDialog( parent)

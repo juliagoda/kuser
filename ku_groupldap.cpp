@@ -19,8 +19,9 @@
 
 #include <QLabel>
 
-#include <kdebug.h>
-#include <klocale.h>
+#include <QDebug>
+#include <QLocale>
+#include <KLocalizedString>
 #include <kldap/ldapdefs.h>
 
 #include "ku_groupldap.h"
@@ -86,7 +87,7 @@ QString KU_GroupLDAP::getRDN( const KU_Group &group ) const
 
 void KU_GroupLDAP::result( KLDAP::LdapSearch *search )
 {
-  kDebug() << "LDAP result: " << search->error();
+  qDebug() << "LDAP result: " << search->error();
   mProg->hide();
 
   if ( search->error() ) {
@@ -150,7 +151,7 @@ void KU_GroupLDAP::data( KLDAP::LdapSearch *, const KLDAP::LdapObject& data )
 
 bool KU_GroupLDAP::reload()
 {
-  kDebug() << "KU_GroupLDAP::reload()";
+  qDebug() << "KU_GroupLDAP::reload()";
   mErrorString = mErrorDetails = QString();
   mProg = new QProgressDialog( 0 );
   mProg->setLabel( new QLabel (i18n("Loading Groups From LDAP")) );
@@ -173,7 +174,7 @@ bool KU_GroupLDAP::reload()
     mProg->exec();
     if ( mProg->wasCanceled() ) search.abandon();
   } else {
-    kDebug() << "search failed";
+    qDebug() << "search failed";
     mOk = false;
     mErrorString = KLDAP::LdapConnection::errorString(search.error());
     mErrorDetails = search.errorString();
@@ -245,7 +246,7 @@ bool KU_GroupLDAP::dbcommit()
   for ( KU_Groups::AddList::Iterator it = mAdd.begin(); it != mAdd.end(); ++it ) {
     ops.clear();
     createModStruct( (*it), -1, ops );
-    kDebug() << "add name: " << (*it).getName();
+    qDebug() << "add name: " << (*it).getName();
     int ret = op.add_s( KLDAP::LdapDN( getRDN( (*it) ) + QLatin1Char( ',' ) + mUrl.dn().toString() ), ops );
     if ( ret != KLDAP_SUCCESS ) {
       mErrorString = KLDAP::LdapConnection::errorString(conn.ldapErrorCode());
@@ -259,7 +260,7 @@ bool KU_GroupLDAP::dbcommit()
 
   //del
   for ( KU_Groups::DelList::Iterator it = mDel.begin(); it != mDel.end(); ++it ) {
-    kDebug() << "delete name: " << at((*it)).getName();
+    qDebug() << "delete name: " << at((*it)).getName();
     int ret = op.del_s( KLDAP::LdapDN( getRDN( at((*it)) ) + QLatin1Char( ',' ) + mUrl.dn().toString() ) );
     if ( ret != KLDAP_SUCCESS ) {
       mErrorString = KLDAP::LdapConnection::errorString(conn.ldapErrorCode());

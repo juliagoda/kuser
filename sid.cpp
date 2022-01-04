@@ -18,7 +18,7 @@
  **/
 
 #include "sid.h"
-#include <kdebug.h>
+#include <QDebug>
 //From Samba
 /* Take the bottom bit. */
 #define RID_MULTIPLIER 2

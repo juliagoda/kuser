@@ -18,7 +18,8 @@
  **/
 
 #include <KColorScheme>
-#include <klocale.h>
+#include <QLocale>
+#include <KLocalizedString>
 #include "ku_global.h"
 #include "ku_usermodel.h"
 

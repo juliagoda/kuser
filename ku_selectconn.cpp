@@ -23,11 +23,11 @@
 #include <QObject>
 #include <QPushButton>
 
-#include <kdebug.h>
-#include <kglobal.h>
-#include <klocale.h>
+#include <QDebug>
+#include <QLocale>
 #include <kmessagebox.h>
-#include <kinputdialog.h>
+#include <QInputDialog>
+#include <KLocalizedString>
 
 #include "ku_global.h"
 #include "ku_selectconn.h"
@@ -53,7 +53,7 @@ KU_SelectConn::KU_SelectConn(const QString &selected, QWidget *parent) :
   QLabel *label = new QLabel( i18n("Defined connections:"), page );
   mCombo = new KComboBox( page );
   mSelected = selected;
-  kDebug() << "selected item: " << mSelected;
+  qDebug() << "selected item: " << mSelected;
 
   conns = KSharedConfig::openConfig()->groupList();
   QStringList::iterator it = conns.begin();
@@ -89,8 +89,8 @@ QString KU_SelectConn::connSelected()
 
 void KU_SelectConn::slotUser3()
 {
-  newconn = KInputDialog::getText( QString(),	//krazy:exclude=nullstrassign for old broken gcc
-    i18n("Please type the name of the new connection:") );
+  newconn = QInputDialog::getText(nullptr, QString(), i18n("Please type the name of the new connection:"));
+
   if ( newconn.isEmpty() ) return;
   if ( KSharedConfig::openConfig()->groupList().contains( QLatin1String( "connection-" ) + newconn ) ) {
     KMessageBox::sorry( 0, i18n("A connection with this name already exists.") );
@@ -119,7 +119,7 @@ void KU_SelectConn::slotNewApplySettings()
 
 void KU_SelectConn::slotUser2()
 {
-  kDebug() << "slotUser2: " << connSelected();
+  qDebug() << "slotUser2: " << connSelected();
 
   KSharedConfig::Ptr config( KSharedConfig::openConfig() );
   KU_PrefsBase kcfg( config, connSelected() );
@@ -144,14 +144,14 @@ void KU_SelectConn::slotUser1()
     mCombo->addItem( QLatin1String( "default" ) );
     mCombo->setCurrentIndex( 0 );
   }
-  kDebug() << "slotUser1: " << conn << " " << mSelected;
+  qDebug() << "slotUser1: " << conn << " " << mSelected;
   if ( mSelected == conn )
     emit( button_box->clicked(button_box->button(QDialogButtonBox::Apply)) );
 }
 
 void KU_SelectConn::slotApply()
 {
-  kDebug() << "slotApply()";
+  qDebug() << "slotApply()";
   if ( connSelected() != mSelected ) {
     mSelected = connSelected();
     emit( button_box->clicked(button_box->button(QDialogButtonBox::Apply)) );
@@ -160,7 +160,7 @@ void KU_SelectConn::slotApply()
 
 void KU_SelectConn::slotApplySettings()
 {
-  kDebug() << "slotApplySettings()";
+  qDebug() << "slotApplySettings()";
   if ( connSelected() == mSelected )
     emit( button_box->clicked(button_box->button(QDialogButtonBox::Apply)) );
 }

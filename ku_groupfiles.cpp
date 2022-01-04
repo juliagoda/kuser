@@ -36,9 +36,9 @@
 #include <stdlib.h>
 
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
-#include <klocale.h>
+#include <QDebug>
+#include <QLocale>
+#include <KLocalizedString>
 
 #include "ku_misc.h"
 
@@ -130,7 +130,7 @@ bool KU_GroupFiles::reload()
 
 bool KU_GroupFiles::save()
 {
-  kDebug() << "KU_GroupFiles::save() ";
+  qDebug() << "KU_GroupFiles::save() ";
   FILE *group_fd = NULL;
   FILE *gshadow_fd = NULL;
   gid_t tmp_gid = 0;
@@ -144,7 +144,7 @@ bool KU_GroupFiles::save()
   new_group_filename = group_filename + QString::fromLatin1(KU_CREATE_EXT);
 #ifdef HAVE_SHADOW_H
   gshadow_filename = mCfg->gshadowsrc();
-  if ( !KStandardDirs::exists( gshadow_filename ) )
+  if ( !QFile::exists( gshadow_filename ) )
       gshadow_filename = QString();
   else
       new_gshadow_filename = gshadow_filename + QString::fromLatin1(KU_CREATE_EXT);
@@ -259,7 +259,7 @@ bool KU_GroupFiles::dbcommit()
   bool ret;
   mode_t mode;
 
-  kDebug() << "KU_GroupFiles dbcommit";
+  qDebug() << "KU_GroupFiles dbcommit";
   mAddSucc.clear();
   mDelSucc.clear();
   mModSucc.clear();

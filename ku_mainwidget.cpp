@@ -22,17 +22,17 @@
 #include <qtimer.h>
 #include <kxmlguifactory.h>
 #include <ktoolbar.h>
-#include <kiconloader.h>
-#include <kaction.h>
-#include <klocale.h>
+#include <QAction>
+#include <QLocale>
 #include <kstandardaction.h>
 #include <kactioncollection.h>
 #include <ktoggleaction.h>
-#include <kdebug.h>
-#include <kstatusbar.h>
-#include <kedittoolbar.h>
-#include <kicon.h>
+#include <QDebug>
 #include <QStatusBar>
+#include <kedittoolbar.h>
+#include <QIcon>
+#include <QStatusBar>
+#include <KLocalizedString>
 
 #include "ku_global.h"
 #include "ku_configdlg.h"
@@ -76,35 +76,35 @@ void KU_MainWidget::setupActions()
   KStandardAction::preferences(this, SLOT(properties()), actionCollection());
   QAction *action;
 
-  action  = new QAction(KIcon( QLatin1String( "list-add-user") ), i18n("&Add..." ), this);
+  action  = new QAction(QIcon( QLatin1String( "list-add-user") ), i18n("&Add..." ), this);
   actionCollection()->addAction( QLatin1String( "add_user" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(useradd()) );
 
-  action  = new QAction(KIcon( QLatin1String( "user-properties") ), i18n("&Edit..." ), this);
+  action  = new QAction(QIcon( QLatin1String( "user-properties") ), i18n("&Edit..." ), this);
   actionCollection()->addAction( QLatin1String( "edit_user" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(useredit()) );
 
-  action  = new QAction(KIcon( QLatin1String( "list-remove-user") ), i18n("&Delete..." ), this);
+  action  = new QAction(QIcon( QLatin1String( "list-remove-user") ), i18n("&Delete..." ), this);
   actionCollection()->addAction( QLatin1String( "delete_user" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(userdel()) );
 
-  action  = new QAction(KIcon( QLatin1String( "preferences-desktop-user-password") ), i18n("&Set Password..." ), this);
+  action  = new QAction(QIcon( QLatin1String( "preferences-desktop-user-password") ), i18n("&Set Password..." ), this);
   actionCollection()->addAction( QLatin1String( "set_password_user" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(setpwd()) );
 
-  action  = new QAction(KIcon( QLatin1String( "user-group-new") ) , i18n("&Add..." ), this);
+  action  = new QAction(QIcon( QLatin1String( "user-group-new") ) , i18n("&Add..." ), this);
   actionCollection()->addAction( QLatin1String( "add_group" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(grpadd()) );
 
-  action  = new QAction(KIcon( QLatin1String( "user-group-properties") ), i18n("&Edit..." ), this);
+  action  = new QAction(QIcon( QLatin1String( "user-group-properties") ), i18n("&Edit..." ), this);
   actionCollection()->addAction( QLatin1String( "edit_group" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(grpedit()) );
 
-  action  = new QAction(KIcon( QLatin1String( "user-group-delete") ), i18n("&Delete..." ), this);
+  action  = new QAction(QIcon( QLatin1String( "user-group-delete") ), i18n("&Delete..." ), this);
   actionCollection()->addAction( QLatin1String( "delete_group" ), action );
   connect( action, SIGNAL(triggered(bool)), mv, SLOT(grpdel()) );
 
-  action  = new QAction(KIcon( QLatin1String( "view-refresh") ), i18n("&Reload..." ), this);
+  action  = new QAction(QIcon( QLatin1String( "view-refresh") ), i18n("&Reload..." ), this);
   actionCollection()->addAction( QLatin1String( "reload" ), action );
   connect( action, SIGNAL(triggered(bool)), this, SLOT(reload()) );
 
@@ -148,7 +148,7 @@ void KU_MainWidget::init()
   mv->clearGroups();
   KU_Global::init();
   rw = ! ( KU_Global::users()->getCaps() & KU_Users::Cap_ReadOnly );
-  kDebug() << "Users rw()" << rw;
+  qDebug() << "Users rw()" << rw;
   actionCollection()->action(QLatin1String( "add_user" ))->setEnabled( rw );
   actionCollection()->action(QLatin1String( "edit_user" ))->setEnabled( rw );
   actionCollection()->action(QLatin1String( "delete_user" ))->setEnabled( rw );
@@ -165,7 +165,7 @@ void KU_MainWidget::init()
   }
 
   rw = ! ( KU_Global::groups()->getCaps() & KU_Groups::Cap_ReadOnly );
-  kDebug() << "Groups rw()" << rw;
+  qDebug() << "Groups rw()" << rw;
   actionCollection()->action(QLatin1String( "add_group" ))->setEnabled( rw );
   actionCollection()->action(QLatin1String( "edit_group" ))->setEnabled( rw );
   actionCollection()->action(QLatin1String( "delete_group" ))->setEnabled( rw );
@@ -184,13 +184,13 @@ void KU_MainWidget::init()
 
 void KU_MainWidget::slotApplySettings()
 {
-  kDebug() << "settings changed!";
+  qDebug() << "settings changed!";
   init();
 }
 
 void KU_MainWidget::slotApplyConnection()
 {
-  kDebug() << "slotApplyConnection()";
+  qDebug() << "slotApplyConnection()";
   QString conn = sc->connSelected();
   KU_Global::kcfg()->setConnection( conn );
   KU_Global::initCfg( conn );

@@ -4,7 +4,6 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <include>QFile</include>
-  <include>kapplication.h</include>
   <include>globals.h</include>
 
   <kcfgfile arg="true">

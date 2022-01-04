@@ -108,7 +108,7 @@ qt5_wrap_ui(kuser_SRCS ku_filessettings.ui ku_generalsettings.ui ku_ldapsettings
 
 add_executable(kuser ${kuser_SRCS})
 
-target_link_libraries(kuser KF5::DocTools KF5::KIONTLM KF5::Ldap KF5::Su Qt5::Widgets KF5::Completion KF5::I18n KF5::CoreAddons KF5::XmlGui KF5::ConfigCore KF5::ConfigGui)
+target_link_libraries(kuser KF5::DocTools KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets KF5::KIONTLM KF5::Ldap KF5::Su Qt5::Widgets KF5::Completion KF5::I18n KF5::CoreAddons KF5::XmlGui KF5::ConfigCore KF5::ConfigGui)
 if(HAVE_CRYPT_LIBRARY)
 	target_link_libraries(kuser crypt)
 endif(HAVE_CRYPT_LIBRARY)

@@ -19,8 +19,9 @@
  *  Boston, MA 02110-1301, USA.
  **/
 
-#include <kglobal.h>
+
 #include <kmessagebox.h>
+#include <KSharedConfig>
 
 #include "ku_global.h"
 #include "ku_userfiles.h"

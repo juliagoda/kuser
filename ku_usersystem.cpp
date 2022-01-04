@@ -26,7 +26,7 @@
 #include <shadow.h>
 #endif
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include "ku_misc.h"
 #include "ku_usersystem.h"

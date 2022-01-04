@@ -36,7 +36,7 @@ public:
   virtual bool removeRows( int row, int count, const QModelIndex & parent = QModelIndex() );
   virtual bool setData( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
 
-  void init() { reset(); }
+  void init() { beginResetModel(); endResetModel(); }
   void commitMod();
   void commitDel();
   void commitAdd();

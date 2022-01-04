@@ -19,17 +19,19 @@
  *  Boston, MA 02110-1301, USA.
  **/
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include <kcombobox.h>
 #include <kmessagebox.h>
 #include <klineedit.h>
 #include <QPushButton>
-#include <ktabwidget.h>
+#include <QTabWidget>
 #include <kldap/ldapconfigwidget.h>
 #include <kldap/ldapurl.h>
-#include <klocale.h>
+#include <QLocale>
 #include <QDialogButtonBox>
+#include <KLocalizedString>
+#include <KLocalizedContext>
 
 #include "ku_configdlg.h"
 #include "ku_misc.h"
@@ -47,7 +49,7 @@ KU_ConfigDlg::KU_ConfigDlg( KCoreConfigSkeleton *config, QWidget *parent, const 
   setStandardButtons(QDialogButtonBox::RestoreDefaults | QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help );
   //setDefaultButton(Ok);
   setModal(true);
-  KTabWidget *page1 = new KTabWidget( this );
+  QTabWidget *page1 = new QTabWidget( this );
   {
     Ui::KU_GeneralSettings ui;
     QFrame *frame = new QFrame ( page1 );
@@ -61,10 +63,10 @@ KU_ConfigDlg::KU_ConfigDlg( KCoreConfigSkeleton *config, QWidget *parent, const 
     QFrame *frame = new QFrame ( page1 );
     ui.setupUi( frame );
     page1->addTab( frame, i18n("Password Policy") );
-    ui.kcfg_smax->setSuffix(i18np(" day", " days"));
-    ui.kcfg_sinact->setSuffix(i18np(" day", " days"));
-    ui.kcfg_swarn->setSuffix(i18np(" day", " days"));
-    ui.kcfg_smin->setSuffix(i18np(" day", " days"));
+    ui.kcfg_smax->setSuffix(i18np(" day", " days", ui.kcfg_smax->value()));
+    ui.kcfg_sinact->setSuffix(i18np(" day", " days", ui.kcfg_sinact->value()));
+    ui.kcfg_swarn->setSuffix(i18np(" day", " days", ui.kcfg_swarn->value()));
+    ui.kcfg_smin->setSuffix(i18np(" day", " days", ui.kcfg_smin->value()));
   }
   addPage( page1, i18n("General"), QLatin1String( "kuser" ), i18n("General Settings") );
 
@@ -75,7 +77,7 @@ KU_ConfigDlg::KU_ConfigDlg( KCoreConfigSkeleton *config, QWidget *parent, const 
     addPage( page2, i18n("Files"), QLatin1String( "document-properties" ), i18n("File Source Settings") );
   }
 
-  KTabWidget *page3 = new KTabWidget( this );
+  QTabWidget *page3 = new QTabWidget( this );
 
   ldconf =
     new KLDAP::LdapConfigWidget(
@@ -159,7 +161,7 @@ void KU_ConfigDlg::slotQueryClicked()
   mProg->setAutoReset( false );
   mProg->exec();
   if ( mProg->wasCanceled() ) {
-    kDebug() << "query cancelled!";
+    qDebug() << "query cancelled!";
     job->kill( KJob::Quietly );
   } else {
     if ( !mErrorMsg.isEmpty() )
@@ -176,7 +178,7 @@ void KU_ConfigDlg::slotQueryClicked()
     }
   }
   delete mProg;
-  kDebug() << "domQueryx";
+  qDebug() << "domQueryx";
 
 }
 

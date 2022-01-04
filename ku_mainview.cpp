@@ -23,12 +23,12 @@
 #include <stdio.h>
 
 
-#include <kinputdialog.h>
+#include <QInputDialog>
 #include <ktoolbar.h>
-#include <kiconloader.h>
 #include <kmessagebox.h>
-#include <klocale.h>
-#include <kdebug.h>
+#include <QLocale>
+#include <QDebug>
+#include <KLocalizedString>
 
 #include "ku_misc.h"
 #include "ku_edituser.h"
@@ -40,7 +40,7 @@
 
 #include "ku_mainview.h"
 
-KU_MainView::KU_MainView(QWidget *parent) : KTabWidget(parent)
+KU_MainView::KU_MainView(QWidget *parent) : QTabWidget(parent)
 {
   init();
 }
@@ -154,7 +154,7 @@ void KU_MainView::setpwd()
     if ( selectedindex.column() != 0 ) continue;
     index = userproxymodel.mapToSource(selectedindex).row();
     user = users->at( index );
-    kDebug() << "Changing password for '" << user.getName() << "'";
+    qDebug() << "Changing password for '" << user.getName() << "'";
     users->createPassword( user, d.getPassword() );
     user.setLastChange( now() );
     user.setDisabled( false );
@@ -194,10 +194,7 @@ void KU_MainView::useradd()
 */
   if ( samba ) rid = SID::uid2rid( uid );
   bool ok;
-  QString name = KInputDialog::getText( QString(),	//krazy:exclude=nullstrassign for old broken gcc
-    i18n("Please type the name of the new user:"),
-    QString(), &ok );
-
+  QString name = QInputDialog::getText(nullptr, QString(), i18n("Please type the name of the new user:"), QLineEdit::Normal, QString(), &ok);
   if ( !ok ) return;
 
   if ( users->lookup( name ) != -1 ) {
@@ -247,7 +244,7 @@ void KU_MainView::useradd()
     return;
   }
   user = au.getNewUser();
-  kDebug() << " surname: " << user.getSurname();
+  qDebug() << " surname: " << user.getSurname();
   if ( privgroup ) {
     KU_Group group;
     int index;
@@ -261,7 +258,7 @@ void KU_MainView::useradd()
       } else {
         gid = groups->first_free();
       }
-      kDebug() << "private group GID: " << gid;
+      qDebug() << "private group GID: " << gid;
       uid_t rid = 0;
 //      if ( samba ) rid = KU_Global::getGroups().first_free_sam();
       if ( samba ) rid = SID::gid2rid( gid );
@@ -324,7 +321,7 @@ void KU_MainView::userdel()
   if ( !currentindex.isValid() ) return;
 
   int index = userproxymodel.mapToSource(currentindex).row();
-  kDebug() << "selected index: " << index;
+  qDebug() << "selected index: " << index;
 
   KU_User user = users->at(index);
   QString username = user.getName();
@@ -344,9 +341,9 @@ void KU_MainView::userdel()
 
   for ( int i = 0; i < groups->count(); i++ ) {
     KU_Group group = groups->at(i);
-    kDebug() << "group: " << group.getName();
+    qDebug() << "group: " << group.getName();
     if ( group.lookup_user( username ) ) {
-      kDebug() << "group: " << group.getName() << " found user: " << username;
+      qDebug() << "group: " << group.getName() << " found user: " << username;
       group.removeUser( username );
       groups->mod( i, group );
     }
@@ -360,11 +357,11 @@ void KU_MainView::userdel()
         "Do you want to delete the user's private group '%1'?",
          groups->at(i).getName()), QString(),
         KStandardGuiItem::del(), KGuiItem(i18n("Do Not Delete"))) == KMessageBox::Yes) {
-      kDebug() << "del private group";
+      qDebug() << "del private group";
       groups->del( i );
     }
   }
-  kDebug() << "update groups";
+  qDebug() << "update groups";
   updateGroups();
 
 }
@@ -411,11 +408,11 @@ void KU_MainView::grpedit()
   if ( !currentindex.isValid() ) return;
 
   int index = groupproxymodel.mapToSource(currentindex).row();
-  kDebug() << "selected index: " << index;
+  qDebug() << "selected index: " << index;
 
   KU_Group group = groups->at(index);
 
-  kDebug() << "The SID for group " << group.getName() << " is: '" << group.getSID().getSID() << "'";
+  qDebug() << "The SID for group " << group.getName() << " is: '" << group.getSID().getSID() << "'";
   if ( ( groups->getCaps() & KU_Groups::Cap_Samba ) &&
        ( group.getCaps() & KU_Group::Cap_Samba ) &&
          group.getSID().isEmpty() ) {
@@ -424,7 +421,7 @@ void KU_MainView::grpedit()
 //    sid.setRID( KU_Global::getGroups().first_free_sam() );
     sid.setRID( SID::gid2rid( group.getGID() ) );
     group.setSID( sid );
-    kDebug() << "The new SID for group " << group.getName() << " is: " << sid.getSID();
+    qDebug() << "The new SID for group " << group.getName() << " is: " << sid.getSID();
   }
   KU_EditGroup egdlg( group, false );
 
@@ -480,7 +477,7 @@ void KU_MainView::grpdel()
 bool KU_MainView::updateUsers()
 {
   bool ret;
-  kDebug() << "updateUsers() ";
+  qDebug() << "updateUsers() ";
   ret = users->dbcommit();
 
   if ( !ret ) {
@@ -498,7 +495,7 @@ bool KU_MainView::updateUsers()
 bool KU_MainView::updateGroups()
 {
   bool ret;
-  kDebug() << "updateGroups() ";
+  qDebug() << "updateGroups() ";
   ret = groups->dbcommit();
 
   if ( !ret ) {

@@ -24,18 +24,15 @@
 #include <QApplication>
 
 #include <KLocalizedString>
-#include <kiconloader.h>
 #include <kconfig.h>
-#include <klocale.h>
-#include <kcmdlineargs.h>
 #include <kaboutdata.h>
-#include <kdebug.h>
+#include <QDebug>
 
 #include "ku_global.h"
 #include "ku_misc.h"
 #include "ku_mainwidget.h"
 
-#include <klocale.h>
+#include <QLocale>
 #include <KAboutData>
 #include <QApplication>
 
@@ -65,7 +62,6 @@ int main(int argc, char **argv)
   KAboutData::setApplicationData(aboutData);
   KU_MainWidget *mw = 0;
 
-  KGlobal::locale()->insertCatalog( QLatin1String( "libkldap" ));
   KConfigGroup group( KSharedConfig::openConfig(), "general" );
   KU_Global::initCfg( group.readEntry( "connection", "default" ) );
 

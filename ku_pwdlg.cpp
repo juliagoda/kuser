@@ -27,7 +27,8 @@
 #include <QPushButton>
 
 #include <kmessagebox.h>
-#include <klocale.h>
+#include <QLocale>
+#include <KLocalizedString>
 
 KU_PwDlg::KU_PwDlg( QWidget* parent )
   : QDialog(parent)

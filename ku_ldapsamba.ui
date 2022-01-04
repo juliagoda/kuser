@@ -291,7 +291,7 @@
   <tabstop>domQuery</tabstop>
  </tabstops>
  <includes>
-  <include location="global" >knuminput.h</include>
+  <include location="global" >QSpinBox</include>
  </includes>
  <resources/>
  <connections>

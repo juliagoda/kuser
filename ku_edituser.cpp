@@ -29,9 +29,9 @@
 
 #include <kseparator.h>
 #include <kmessagebox.h>
-#include <kdebug.h>
-#include <klocale.h>
-#include <kglobal.h>
+#include <QDebug>
+#include <QLocale>
+#include <KI18n/KLocalizedString>
 
 #include "ku_edituser.h"
 #include "ku_pwdlg.h"
@@ -480,8 +480,7 @@ void KU_EditUser::selectuser()
   if ( KU_Global::users()->getCaps() & KU_Users::Cap_Shadow ||
        KU_Global::users()->getCaps() & KU_Users::Cap_Samba ||
        KU_Global::users()->getCaps() & KU_Users::Cap_BSD ) {
-
-    leslstchg->setText( KGlobal::locale()->formatDateTime( datetime, KLocale::LongDate ) );
+    leslstchg->setText(QLocale().dateTimeFormat(QLocale::LongFormat));
   }
 
   if ( one ) {
@@ -567,7 +566,7 @@ void KU_EditUser::selectuser()
 
       QDateTime expire;
       expire.setTime_t( user.getExpire() );
-      kDebug() << "expiration: " << user.getExpire();
+      qDebug() << "expiration: " << user.getExpire();
       setCB( cbexpire, (int) expire.toTime_t() == -1, first );
       if ( (int) expire.toTime_t() == -1 ) expire.setTime_t( 0 );
       if ( first ) {
@@ -646,14 +645,14 @@ void KU_EditUser::loadgroups( bool fixedprivgroup )
           item->setCheckState( Qt::PartiallyChecked );
         }
       if ( index == mSelected.count() ) break;
-      kDebug() << "index: " << index << " count: " << mSelected.count();
+      qDebug() << "index: " << index << " count: " << mSelected.count();
       user = KU_Global::users()->at(mSelected[index++]);
     }
   }
 
   if ( fixedprivgroup ) {
     KU_User user = mSelected.isEmpty() ? mUser : KU_Global::users()->at(mSelected[0]);
-    kDebug() << "privgroup: " << user.getName();
+    qDebug() << "privgroup: " << user.getName();
     if ( !wasprivgr ) {
       QListWidgetItem *item = new QListWidgetItem(user.getName(),lstgrp);
       item->setCheckState( Qt::Checked );
@@ -700,7 +699,7 @@ void KU_EditUser::changed()
   QWidget *widget = (QWidget*) sender();
   if ( mNoChanges.contains( widget ) ) mNoChanges[ widget ]->setChecked( false );
   ischanged = true;
-  kDebug() << "changed";
+  qDebug() << "changed";
 }
 
 void KU_EditUser::gchanged()
@@ -738,7 +737,7 @@ void KU_EditUser::mergeUser( const KU_User &user, KU_User &newuser )
       newuser.setCaps( newuser.getCaps() | KU_User::Cap_POSIX );
   }
   posix = newuser.getCaps() & KU_User::Cap_POSIX;
-  kDebug() << "posix: " << posix;
+  qDebug() << "posix: " << posix;
   if ( one ) {
     newuser.setName( lbuser->text() );
     newuser.setUID( posix ? leid->text().toInt() : 0 );
@@ -756,7 +755,7 @@ void KU_EditUser::mergeUser( const KU_User &user, KU_User &newuser )
         newuser.setCaps( newuser.getCaps() | KU_User::Cap_Samba );
     }
     samba = newuser.getCaps() & KU_User::Cap_Samba;
-    kDebug() << "user : " << newuser.getName() << " caps: " << newuser.getCaps() << " samba: " << samba;
+    qDebug() << "user : " << newuser.getName() << " caps: " << newuser.getCaps() << " samba: " << samba;
 
     SID sid;
     if ( samba ) {
@@ -811,7 +810,7 @@ void KU_EditUser::mergeUser( const KU_User &user, KU_User &newuser )
   if ( KU_Global::users()->getCaps() & KU_Users::Cap_InetOrg ) {
     newuser.setSurname( mergeLE( lesurname, user.getSurname(), one ) );
     newuser.setEmail( mergeLE( lemail, user.getEmail(), one ) );
-    kDebug() << "surname: " << newuser.getSurname() << " mail: " << newuser.getEmail();
+    qDebug() << "surname: " << newuser.getSurname() << " mail: " << newuser.getEmail();
   }
 
   if ( KU_Global::users()->getCaps() & KU_Users::Cap_Shadow ) {
@@ -861,7 +860,7 @@ bool KU_EditUser::saveg()
 
     QListWidgetItem *item = lstgrp->item( row );
 
-    kDebug() << "saveg: group name: " << item->text();
+    qDebug() << "saveg: group name: " << item->text();
     int grpindex = KU_Global::groups()->lookup(item->text());
     if ( grpindex != -1 && item->checkState() != Qt::PartiallyChecked ) {
 
@@ -901,7 +900,7 @@ bool KU_EditUser::checkShell(const QString &shell)
 
 bool KU_EditUser::check()
 {
-  kDebug() << "KU_EditUser::check()";
+  qDebug() << "KU_EditUser::check()";
 
   bool one = mSelected.isEmpty();
   bool posix = !( KU_Global::users()->getCaps() & KU_Users::Cap_Disable_POSIX ) || !( cbposix->isChecked() );
@@ -947,7 +946,7 @@ void KU_EditUser::setpwd()
         KU_Global::users()->getCaps() & KU_Users::Cap_Samba ||
         KU_Global::users()->getCaps() & KU_Users::Cap_BSD ) {
 
-        leslstchg->setText( KGlobal::locale()->formatDateTime( datetime, KLocale::LongDate ) );
+        leslstchg->setText( QLocale().dateFormat(QLocale::LongFormat) );
     }
     cbdisabled->setChecked( false );
   }
@@ -955,7 +954,7 @@ void KU_EditUser::setpwd()
 
 void KU_EditUser::accept()
 {
-  kDebug() << "KU_EditUser::slotOk() ischanged: " << ischanged;
+  qDebug() << "KU_EditUser::slotOk() ischanged: " << ischanged;
   if ( ro ) {
     reject();
     return;

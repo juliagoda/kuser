@@ -33,8 +33,10 @@
 #include <QGroupBox>
 
 #include <kmessagebox.h>
-#include <kdebug.h>
-#include <klocale.h>
+#include <QDebug>
+#include <QLocale>
+#include <QFile>
+#include <KI18n/KLocalizedString>
 
 #include "ku_global.h"
 #include "ku_adduser.h"
@@ -102,7 +104,7 @@ void KU_AddUser::accept()
 
   saveg();
   done( Accepted );
-  kDebug() << "slotOk name: " << mNewUser.getName();
+  qDebug() << "slotOk name: " << mNewUser.getName();
 
 }
 

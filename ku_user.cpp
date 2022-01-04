@@ -36,13 +36,13 @@
 #include <QDir>
 #include <QSharedData>
 
-#include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kshell.h>
-#include <kdebug.h>
-#include <kio/netaccess.h>
-#include <kurl.h>
-#include <klocale.h>
+#include <QDebug>
+#include <KIO/DeleteJob>
+#include <QUrl>
+#include <QLocale>
+#include <KLocalizedString>
 
 #include "ku_user.h"
 #include "ku_misc.h"
@@ -284,9 +284,10 @@ int KU_User::removeHome()
 
   if (!stat(QFile::encodeName(d->HomeDir), &sb))
     if (S_ISDIR(sb.st_mode) && sb.st_uid == d->UID) {
-      if (!KIO::NetAccess::del(KUrl(d->HomeDir),0L)) {
+        KIO::DeleteJob* deleting_job = KIO::del(QUrl(d->HomeDir));
+      if (!deleting_job->exec()) {
              KMessageBox::error( 0, i18n("Cannot remove home folder %1.\nError: %2",
-                        d->HomeDir, KIO::NetAccess::lastErrorString()) );
+                        d->HomeDir, deleting_job->errorString() ) );
       }
     } else {
       KMessageBox::error( 0, i18n("Removal of home folder %1 failed (uid = %2, gid = %3).", d->HomeDir, sb.st_uid, sb.st_gid) );
@@ -410,7 +411,7 @@ bool KU_Users::doCreate(KU_User *user)
 
 bool KU_Users::doDelete( KU_User *user )
 {
-  kDebug() << "delete user: " << user->getName() << " uid: " << user->getUID();
+  qDebug() << "delete user: " << user->getName() << " uid: " << user->getUID();
   if ( user->getDeleteHome() ) {
     user->removeHome();
     user->removeCrontabs();
@@ -500,7 +501,7 @@ void KU_Users::mod(int index, const KU_User &newuser)
 
 void KU_Users::commit()
 {
-  kDebug() << "KU_Users::commit()";
+  qDebug() << "KU_Users::commit()";
 
   for ( ModList::Iterator it = mModSucc.begin(); it != mModSucc.end(); ++it ) {
       replace(it.key(),*it);

@@ -26,12 +26,12 @@
 
 #include <QTreeView>
 
-#include <ktabwidget.h>
+#include <QTabWidget>
 
 #include "ku_usermodel.h"
 #include "ku_groupmodel.h"
 
-class KU_MainView : public KTabWidget {
+class KU_MainView : public QTabWidget {
 Q_OBJECT
 public:
   KU_MainView(QWidget *parent = 0);

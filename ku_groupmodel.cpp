@@ -17,7 +17,8 @@
  *  Boston, MA 02110-1301, USA.
  **/
 
-#include <klocale.h>
+#include <QLocale>
+#include <KLocalizedString>
 
 #include "ku_global.h"
 #include "ku_groupmodel.h"

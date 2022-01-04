@@ -21,8 +21,9 @@
 #include <QLabel>
 #include <QCryptographicHash>
 
-#include <kdebug.h>
-#include <klocale.h>
+#include <QDebug>
+#include <QLocale>
+#include <KLocalizedString>
 #include <kio/kntlm.h>
 #include <kldap/ldapdefs.h>
 #include <kldap/ldapdn.h>
@@ -86,7 +87,7 @@ KU_UserLDAP::~KU_UserLDAP()
 
 void KU_UserLDAP::result( KLDAP::LdapSearch *search )
 {
-  kDebug() << "LDAP result: " << search->error() << " " << search->errorString();
+  qDebug() << "LDAP result: " << search->error() << " " << search->errorString();
   mProg->hide();
 
   if ( search->error() ) {
@@ -205,10 +206,10 @@ void KU_UserLDAP::data( KLDAP::LdapSearch *, const KLDAP::LdapObject& data )
 
   }
 
-  kDebug() << "new user: " << user.getName();
+  qDebug() << "new user: " << user.getName();
   if ( !objectclasses.isEmpty() ) {
     mObjectClasses.insert( count(), objectclasses );
-    kDebug() << "user: " << user.getName() << " other objectclasses: " << objectclasses.join(QLatin1String( "," ));
+    qDebug() << "user: " << user.getName() << " other objectclasses: " << objectclasses.join(QLatin1String( "," ));
   }
   append( user );
 
@@ -221,7 +222,7 @@ void KU_UserLDAP::data( KLDAP::LdapSearch *, const KLDAP::LdapObject& data )
 
 bool KU_UserLDAP::reload()
 {
-  kDebug() << "KU_UserLDAP::reload()";
+  qDebug() << "KU_UserLDAP::reload()";
   mErrorString = mErrorDetails = QString();
   mObjectClasses.clear();
   mProg = new QProgressDialog( 0 );
@@ -246,7 +247,7 @@ bool KU_UserLDAP::reload()
     mProg->exec();
     if ( mProg->wasCanceled() ) search.abandon();
   } else {
-    kDebug() << "search failed";
+    qDebug() << "search failed";
     mOk = false;
     mErrorString = KLDAP::LdapConnection::errorString(search.error());
     mErrorDetails = search.errorString();
@@ -383,7 +384,7 @@ void KU_UserLDAP::createModStruct( const KU_User &user, int oldindex, KLDAP::Lda
 
   if ( mod && mObjectClasses.contains( oldindex ) ) {
     QStringList ocs = mObjectClasses[ oldindex ];
-    kDebug() << user.getName() << " has additional objectclasses: " << ocs.join(QLatin1String( "," ));
+    qDebug() << user.getName() << " has additional objectclasses: " << ocs.join(QLatin1String( "," ));
     QStringList::iterator it;
     for ( it = ocs.begin(); it != ocs.end(); ++it ) {
       vals.append( (*it).toUtf8() );
@@ -550,7 +551,7 @@ bool KU_UserLDAP::dbcommit()
   for ( KU_Users::AddList::Iterator it = mAdd.begin(); it != mAdd.end(); ++it ) {
     ops.clear();
     createModStruct( (*it), -1, ops );
-    kDebug() << "add name: " << (*it).getName();
+    qDebug() << "add name: " << (*it).getName();
     int ret = op.add_s( KLDAP::LdapDN( getRDN( (*it) ) + QLatin1Char( ',' ) + mUrl.dn().toString() ), ops );
     if ( ret != KLDAP_SUCCESS ) {
       mErrorString = KLDAP::LdapConnection::errorString(conn.ldapErrorCode());
@@ -564,7 +565,7 @@ bool KU_UserLDAP::dbcommit()
 
   //del
   for ( KU_Users::DelList::Iterator it = mDel.begin(); it != mDel.end(); ++it ) {
-    kDebug() << "delete name: " << at((*it)).getName();
+    qDebug() << "delete name: " << at((*it)).getName();
     int ret = op.del_s( KLDAP::LdapDN( getRDN( at((*it)) ) + QLatin1Char( ',' ) + mUrl.dn().toString() ) );
     if ( ret != KLDAP_SUCCESS ) {
       mErrorString = KLDAP::LdapConnection::errorString(conn.ldapErrorCode());

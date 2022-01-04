@@ -27,7 +27,6 @@
 
 #include <kconfigdialog.h>
 #include <kldap/ldif.h>
-#include <kprogressdialog.h>
 #include <kio/job.h>
 
 class Ui_KU_LdapSamba;
