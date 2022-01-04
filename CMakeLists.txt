@@ -1,18 +1,42 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.0)
 project(kuser)
 
-set(VERSION "21.10.0-dev" )
+set(VERSION "v17.0.0" )
 set(RELEASE_NAME "Bleeding Edge")
-set (QT_MIN_VERSION "5.15")
+set (QT5_MIN_VERSION "5.15")
 
 # search packages used by KDE
 find_package(ECM 1.3.0 REQUIRED NO_MODULE)
 set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}/modules" ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-if(COMMAND cmake_policy)
-  cmake_policy(SET CMP0003 NEW)
-endif(COMMAND cmake_policy)
 
+if(BUILD_WITH_QT6 OR QT_VERSION_MAJOR EQUAL 6)
+  message("QT6 has been choosen with BUILD_WITH_QT6")
+  set(QT_VERSION_MAJOR 6 CACHE STRING "" FORCE)
+  set(BUILD_WITH_QT6 ON CACHE BOOL "" FORCE)
+elseif(BUILD_WITH_QT5 OR QT_VERSION_MAJOR EQUAL 5)
+    message("QT5 has been choosen with BUILD_WITH_QT5")
+  set(QT_VERSION_MAJOR 5 CACHE STRING "" FORCE)
+  set(BUILD_WITH_QT5 ON CACHE BOOL "" FORCE)
+else()
+  # Automatically detect Qt version.
+  find_package(QT NAMES Qt6 Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+  if(QT_FOUND AND QT_VERSION_MAJOR EQUAL 6)
+    message("Automatically detected QT6")
+    set(BUILD_WITH_QT6 ON CACHE BOOL "" FORCE)
+    set(QT_VERSION_MAJOR 6 CACHE STRING "" FORCE)
+  elseif(QT_FOUND AND QT_VERSION_MAJOR EQUAL 5)
+    message("Automatically detected QT5")
+    set(BUILD_WITH_QT5 ON CACHE BOOL "" FORCE)
+    set(QT_VERSION_MAJOR 5 CACHE STRING "" FORCE)
+  else()
+    message(FATAL_ERROR "Missing Qt.")
+  endif()
+endif()
+
+if(COMMAND cmake_policy)
+  cmake_policy(SET CMP0054 NEW)
+endif(COMMAND cmake_policy)
 
 include(CheckIncludeFiles)
 include(KDEInstallDirs)
@@ -21,11 +45,15 @@ include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(FeatureSummary)
 
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Widgets Gui Core)
+if(BUILD_WITH_QT6)
+    message("Looking for Qt6 packages")
+    find_package(Qt6 CONFIG REQUIRED COMPONENTS Widgets Gui Core)
+else()
+    message("Looking for Qt5 packages")
+    find_package(Qt5 ${QT5_MIN_VERSION} CONFIG REQUIRED COMPONENTS Widgets Gui Core)
+endif()
+
 find_package(KF5 REQUIRED COMPONENTS KIO Su Ldap DocTools Completion I18n CoreAddons XmlGui Config)
-
-
-#include (MacroLibrary)
 
 include(CheckIncludeFiles)
 
@@ -113,11 +141,20 @@ if(HAVE_CRYPT_LIBRARY)
 	target_link_libraries(kuser crypt)
 endif(HAVE_CRYPT_LIBRARY)
 
+message("INSTALL_TARGETS_DEFAULT_ARGS PATH: ${INSTALL_TARGETS_DEFAULT_ARGS}")
 install(TARGETS kuser ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 
 ########### install files ###############
+message("XDG_APPS_INSTALL_DIR PATH: ${XDG_APPS_INSTALL_DIR}")
+message("KCFG_INSTALL_DIR PATH: ${KCFG_INSTALL_DIR}")
 
-install(PROGRAMS kuser.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES kuserui.rc DESTINATION ${DATA_INSTALL_DIR}/kuser)
-install(FILES kuser.kcfg  DESTINATION ${KCFG_INSTALL_DIR})
+if(BUILD_WITH_QT6)
+    install(PROGRAMS kuser.desktop DESTINATION share/applications)
+    install(FILES kuserui.rc DESTINATION ${DATA_INSTALL_DIR}/kuser)
+    install(FILES kuser.kcfg  DESTINATION share/config.kcfg)
+else()
+    install(PROGRAMS kuser.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+    install(FILES kuserui.rc DESTINATION ${DATA_INSTALL_DIR}/kuser)
+    install(FILES kuser.kcfg  DESTINATION ${KCFG_INSTALL_DIR})
+endif()
