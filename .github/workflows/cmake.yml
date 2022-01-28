@@ -32,7 +32,7 @@ jobs:
       - name: initialize
         uses: actions/checkout@v2
       - name: install dependencies
-        run: sudo apt install -y gettext extra-cmake-modules pkg-config kdoctools-dev libkf5kio-dev libkf5widgetsaddons-dev libkf5coreaddons-dev libkf5config-dev libkf5xmlgui-dev libkf5declarative-dev libkf5completion-dev libkf5su-dev libkf5ldap-dev
+        run: sudo apt install -y gettext extra-cmake-modules pkg-config kdoctools-dev libkf5kio-dev libkf5widgetsaddons-dev libkf5coreaddons-dev libkf5config-dev libkf5xmlgui-dev libkf5declarative-dev libkf5completion-dev libkf5su-dev libkf5ldap-dev qtbase5-dev libqt5widgets5 libqt5gui5
       - name: run cmake
         run: cmake .
       - name: run make
