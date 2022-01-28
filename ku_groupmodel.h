@@ -28,13 +28,13 @@
 class KU_GroupModel : public QAbstractTableModel
 {
 public:
-  virtual int rowCount( const QModelIndex & parent = QModelIndex() ) const;
-  virtual int columnCount( const QModelIndex & parent = QModelIndex() ) const;
-  virtual QVariant headerData( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
-  virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
-  virtual bool insertRows( int row, int count, const QModelIndex & parent = QModelIndex() );
-  virtual bool removeRows( int row, int count, const QModelIndex & parent = QModelIndex() );
-  virtual bool setData( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
+  virtual int rowCount( const QModelIndex & parent = QModelIndex() ) const override;
+  virtual int columnCount( const QModelIndex & parent = QModelIndex() ) const override;
+  virtual QVariant headerData( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const override;
+  virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const override;
+  virtual bool insertRows( int row, int count, const QModelIndex & parent = QModelIndex() ) override;
+  virtual bool removeRows( int row, int count, const QModelIndex & parent = QModelIndex() ) override;
+  virtual bool setData( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole ) override;
 
   void init() { beginResetModel(); endResetModel(); }
   void commitMod();
@@ -47,8 +47,8 @@ class KU_GroupSortingProxyModel : public QSortFilterProxyModel
 public:
   void setFirstGroup( uint first ) { mFirstGroup = first; }
 protected:
-  virtual bool lessThan( const QModelIndex & left, const QModelIndex & right ) const;
-  virtual bool filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const;
+  virtual bool lessThan( const QModelIndex & left, const QModelIndex & right ) const override;
+  virtual bool filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const override;
 private:
   uint mFirstGroup;
 };

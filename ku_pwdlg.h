@@ -35,7 +35,7 @@ public:
 
   QString getPassword() const;
 protected slots:
-  virtual void accept();
+  virtual void accept() override;
 
 private:
   KLineEdit   *lepw1;

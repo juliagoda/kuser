@@ -29,8 +29,8 @@ public:
   KU_GroupSystem( KU_PrefsBase *cfg );
   virtual ~KU_GroupSystem();
 
-  virtual bool reload();
-  virtual bool dbcommit() { return true; }
+  virtual bool reload() override;
+  virtual bool dbcommit() override { return true; }
 };
 
 #endif // _KU_GROUPSYSTEM_H_

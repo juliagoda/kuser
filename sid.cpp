@@ -34,11 +34,6 @@ SID::SID()
   mRid = 0; mSid = QString(); mDom = QString();	//krazy:exclude=nullstrassign for old broken gcc
 }
 
-SID::SID( const SID &sid )
-{
-  setSID( sid.getSID() );
-}
-
 SID::SID( const QString &sid )
 {
   setSID( sid );

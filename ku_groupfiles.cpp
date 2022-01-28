@@ -91,7 +91,7 @@ bool KU_GroupFiles::reload()
   // We are reading our configuration specified group file
 #ifdef HAVE_FGETGRENT
   FILE *fgrp = fopen(QFile::encodeName(group_filename), "r");
-  QString tmp;
+
   if (fgrp == NULL) {
     mErrorString = i18n("Error opening %1 for reading.", group_filename);
     return false;
@@ -133,8 +133,7 @@ bool KU_GroupFiles::save()
   qDebug() << "KU_GroupFiles::save() ";
   FILE *group_fd = NULL;
   FILE *gshadow_fd = NULL;
-  gid_t tmp_gid = 0;
-  QString tmpGe, tmpSe, tmp2;
+  QString tmpGe, tmpSe;
   QString group_filename, new_group_filename;
   QString gshadow_filename, new_gshadow_filename;
 
@@ -213,7 +212,6 @@ bool KU_GroupFiles::save()
     tmpGe.replace( QLatin1Char( ':' ), QLatin1String( "_" ) );
     group.setName( tmpGe );
 
-    tmp_gid = group.getGID();
     tmpGe += QLatin1Char( ':' ) +
             group.getPwd() + QLatin1Char( ':' ) +
             QString::number( group.getGID() ) + QLatin1Char( ':' );

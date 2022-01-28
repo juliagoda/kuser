@@ -27,7 +27,6 @@ class SID {
 public:
   SID();
   SID( const QString &sid );
-  SID( const SID &sid );
   ~SID();
 
   bool operator== ( const SID &sid ) const;

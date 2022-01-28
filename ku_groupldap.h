@@ -37,8 +37,8 @@ public:
   KU_GroupLDAP( KU_PrefsBase *cfg );
   virtual ~KU_GroupLDAP();
 
-  virtual bool reload();
-  virtual bool dbcommit();
+  virtual bool reload() override;
+  virtual bool dbcommit() override;
 
 private slots:
   void result( KLDAP::LdapSearch *search );

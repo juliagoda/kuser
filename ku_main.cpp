@@ -76,5 +76,5 @@ int main(int argc, char **argv)
 
   a.exec();
 
-  KU_Global::kcfg()->writeConfig();
+  KU_Global::kcfg()->save();
 }

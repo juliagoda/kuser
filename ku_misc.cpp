@@ -52,7 +52,6 @@ bool backup(const QString & name)
 
   if (copyFile(QLatin1String( QFile::encodeName(name) ), QLatin1String( QFile::encodeName(tmp) )) == -1)
   {
-    QString str;
     KMessageBox::error( 0, i18n("Can not create backup file for %1", name) );
     return false;
   }
@@ -100,14 +99,13 @@ void copyDir(const QString &srcPath, const QString &dstPath, uid_t uid, gid_t gi
     if ( info.permission(QFile::ExeOther) ) mode |=  S_IXOTH;
 
     if ( info.isSymLink() ) {
-      QString link = info.readLink();
+      QString link = info.symLinkTarget();
 
       if (symlink(QFile::encodeName(link),QFile::encodeName(d.filePath(name))) != 0) {
         KMessageBox::error( 0, i18n("Error creating symlink %1.\nError: %2",
                    d.filePath(s[i]), QString::fromLocal8Bit(strerror(errno))) );
       }
     } else if ( info.isDir() ) {
-      QDir dir(filename);
 
       d.mkdir(name);
       copyDir(s.filePath(name), d.filePath(name), uid, gid);
@@ -223,7 +221,7 @@ QByteArray genSalt( int len )
 
   salt[0] = set[getpid() % strlen(set)];
   for( int i = 1; i < len; i++ ) {
-    salt[i] = set[KRandom::random() % strlen(set)];
+    salt[i] = set[QRandomGenerator::global()->bounded(RAND_MAX) % strlen(set)];
   }
   return salt;
 }

@@ -226,4 +226,3 @@ void KU_ConfigDlg::loadResult( KJob* job)
   mProg->hide();
 }
 
-#include "ku_configdlg.moc"

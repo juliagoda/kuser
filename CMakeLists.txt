@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.16.0)
+cmake_policy(SET CMP0063 NEW)
 project(kuser)
 
 set(VERSION "v17.0.0" )

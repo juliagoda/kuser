@@ -228,7 +228,6 @@ void KU_EditUser::initDlg()
     QGridLayout *layout = new QGridLayout( frame );
     int row = 0;
 
-    QDateTime time;
     leslstchg = new QLabel(frame);
     addRow(frame, layout, row++, leslstchg, i18n("Last password change:"), QString(), true);
 
@@ -244,13 +243,7 @@ void KU_EditUser::initDlg()
       layout->addWidget(new KSeparator(Qt::Horizontal, frame), row, 0, 1, 4);
       row++;
     }
-    /*
-    if ( KU_Global::users()->getCaps() & KU_Users::Cap_Samba ) {
-      layout->addWidget( new QLabel( i18n("SAMBA parameters:"), frame ), row++, 0 );
-      layout->addMultiCellWidget(new KSeparator(Qt::Horizontal, frame), row, row, 0, 3);
-      row++;
-    }
-    */
+
     QLabel *label = new QLabel( i18n("&Account will expire on:"), frame );
     layout->addWidget( label, row, 0 );
     lesexpire = new QDateTimeEdit( frame );
@@ -513,11 +506,13 @@ void KU_EditUser::selectuser()
       if ( !shell.isEmpty() ) {
         bool tested = false;
         for ( int i=0; i<leshell->count(); i++ )
+        {
           if ( leshell->itemText(i) == shell ) {
             tested = true;
             leshell->setCurrentIndex(i);
             break;
           }
+        }
           if ( !tested ) {
             leshell->insertItem( leshell->count(), shell );
             leshell->setCurrentIndex( leshell->count()-1 );
@@ -797,13 +792,13 @@ void KU_EditUser::mergeUser( const KU_User &user, KU_User &newuser )
       ( leshell->currentIndex() == 0 && !ismoreshells ) ||
       ( leshell->currentIndex() == 1 && ismoreshells ) ) {
 
-      newuser.setShell( QString::null );	//krazy:exclude=nullstrassign for old broken gcc
+      newuser.setShell( QString() );	//krazy:exclude=nullstrassign for old broken gcc
     } else {
   // TODO: Check shell.
       newuser.setShell( leshell->currentText() );
     }
   } else
-    newuser.setShell( QString::null );	//krazy:exclude=nullstrassign for old broken gcc
+    newuser.setShell( QString() );	//krazy:exclude=nullstrassign for old broken gcc
 
   newuser.setDisabled( (cbdisabled->checkState() == Qt::PartiallyChecked) ? user.getDisabled() : cbdisabled->isChecked() );
 
@@ -1016,4 +1011,4 @@ void KU_EditUser::accept()
   }
 }
 
-#include "ku_edituser.moc"
+

@@ -34,12 +34,12 @@
 void KU_Global::initCfg( const QString &connection )
 {
   if ( mCfg ) {
-    mCfg->writeConfig();
+    mCfg->save();
     delete mCfg;
   }
   KSharedConfig::Ptr config( KSharedConfig::openConfig() );
   mCfg = new KU_PrefsBase( config, connection );
-  mCfg->readConfig();
+  mCfg->load();
 }
 
 void KU_Global::displayUsersError()

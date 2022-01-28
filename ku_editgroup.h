@@ -46,7 +46,7 @@ public:
   const KU_Group &getGroup() const { return mGroup; }
 
 public slots:
-  virtual void accept();
+  virtual void accept() override;
 
 protected slots:
   void addClicked();

@@ -40,7 +40,7 @@ public:
   const KU_User &getNewUser() const { return mNewUser; }
 
 protected slots:
-  virtual void accept();
+  virtual void accept() override;
 protected:
   bool checkHome();
   bool checkMailBox();

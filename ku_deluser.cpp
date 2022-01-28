@@ -50,4 +50,4 @@ KU_DelUser::KU_DelUser(KU_User *AUser, QWidget *parent)
   page->addWidget(buttonBox);
 }
 
-#include "ku_deluser.moc"
+

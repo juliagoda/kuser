@@ -105,7 +105,7 @@ void KU_SelectConn::slotUser3()
   cfgdlg.exec();
 
   if ( newconn.isEmpty() )
-    emit( button_box->clicked(button_box->button(QDialogButtonBox::Apply)) );
+    emit button_box->clicked(button_box->button(QDialogButtonBox::Apply));
 }
 
 void KU_SelectConn::slotNewApplySettings()
@@ -123,7 +123,7 @@ void KU_SelectConn::slotUser2()
 
   KSharedConfig::Ptr config( KSharedConfig::openConfig() );
   KU_PrefsBase kcfg( config, connSelected() );
-  kcfg.readConfig();
+  kcfg.load();
 
   KU_ConfigDlg cfgdlg( &kcfg, this );
   connect( &cfgdlg, SIGNAL(settingsChanged(QString)), this, SLOT(slotApplySettings()) );
@@ -146,7 +146,7 @@ void KU_SelectConn::slotUser1()
   }
   qDebug() << "slotUser1: " << conn << " " << mSelected;
   if ( mSelected == conn )
-    emit( button_box->clicked(button_box->button(QDialogButtonBox::Apply)) );
+    emit button_box->clicked(button_box->button(QDialogButtonBox::Apply));
 }
 
 void KU_SelectConn::slotApply()
@@ -154,7 +154,7 @@ void KU_SelectConn::slotApply()
   qDebug() << "slotApply()";
   if ( connSelected() != mSelected ) {
     mSelected = connSelected();
-    emit( button_box->clicked(button_box->button(QDialogButtonBox::Apply)) );
+    emit button_box->clicked(button_box->button(QDialogButtonBox::Apply));
   }
 }
 
@@ -162,7 +162,5 @@ void KU_SelectConn::slotApplySettings()
 {
   qDebug() << "slotApplySettings()";
   if ( connSelected() == mSelected )
-    emit( button_box->clicked(button_box->button(QDialogButtonBox::Apply)) );
+    emit button_box->clicked(button_box->button(QDialogButtonBox::Apply));
 }
-
-#include "ku_selectconn.moc"

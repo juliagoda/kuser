@@ -31,9 +31,9 @@ public:
   KU_UserFiles(KU_PrefsBase *cfg);
   virtual ~KU_UserFiles();
 
-  virtual bool dbcommit();
-  virtual bool reload();
-  virtual void createPassword( KU_User &user, const QString &password );
+  virtual bool dbcommit() override;
+  virtual bool reload() override;
+  virtual void createPassword( KU_User &user, const QString &password ) override;
 
 private:
   bool pw_backuped;

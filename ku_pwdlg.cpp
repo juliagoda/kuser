@@ -100,5 +100,3 @@ QString KU_PwDlg::getPassword() const
 {
   return lepw1->text();
 }
-
-#include "ku_pwdlg.moc"

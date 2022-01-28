@@ -240,7 +240,7 @@ void KU_EditGroup::addClicked()
   int i = 0;
   while ( i < m_list_notin->topLevelItemCount() ) {
     QTreeWidgetItem *item = m_list_notin->topLevelItem( i );
-    if ( m_list_notin->isItemSelected( item ) ) {
+    if ( item->isSelected() ) {
       item = m_list_notin->takeTopLevelItem( i );
       m_list_in->insertTopLevelItem( m_list_in->topLevelItemCount(), item );
     } else {
@@ -254,7 +254,7 @@ void KU_EditGroup::delClicked()
   int i = 0;
   while ( i < m_list_in->topLevelItemCount() ) {
     QTreeWidgetItem *item = m_list_in->topLevelItem( i );
-    if ( m_list_in->isItemSelected( item ) ) {
+    if ( item->isSelected() ) {
       item = m_list_in->takeTopLevelItem( i );
       m_list_notin->insertTopLevelItem( m_list_notin->topLevelItemCount(), item );
     } else {
@@ -338,4 +338,3 @@ void KU_EditGroup::accept()
   done( Accepted );
 }
 
-#include "ku_editgroup.moc"

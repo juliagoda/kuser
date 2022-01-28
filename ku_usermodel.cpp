@@ -92,7 +92,8 @@ QVariant KU_UserModel::data( const QModelIndex & index, int role ) const
 void KU_UserModel::commitDel()
 {
 //Must do the deleting from the bigger indexes to the smaller ones
-  qSort( KU_Global::users()->mDelSucc );
+  QList<int> users = KU_Global::users()->mDelSucc;
+  std::sort( users.begin(), users.end() );
   for ( int i = KU_Global::users()->mDelSucc.count()-1; i >= 0; i-- ) {
     removeRows(KU_Global::users()->mDelSucc.at(i), 1);
   }

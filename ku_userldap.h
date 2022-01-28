@@ -40,8 +40,8 @@ public:
   KU_UserLDAP(KU_PrefsBase *cfg);
   virtual ~KU_UserLDAP();
 
-  virtual bool reload();
-  virtual bool dbcommit();
+  virtual bool reload() override;
+  virtual bool dbcommit() override;
 
 private slots:
   void result( KLDAP::LdapSearch *search );
@@ -57,7 +57,7 @@ private:
   QString getRDN( const KU_User &user ) const;
   void createModStruct( const KU_User &user, int oldindex, KLDAP::LdapOperation::ModOps &ops);
   
-  virtual void createPassword( KU_User &user, const QString &password );
+  virtual void createPassword( KU_User &user, const QString &password ) override;
 };
 
 #endif // _KU_USERLDAP_H_

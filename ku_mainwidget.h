@@ -33,7 +33,7 @@ Q_OBJECT
 public:
   KU_MainWidget();
   ~KU_MainWidget();
-  bool queryClose();
+  bool queryClose() override;
 
 protected:
   void init();

@@ -309,5 +309,3 @@ void KU_GroupLDAP::createModStruct( const KU_Group &group, int oldindex, KLDAP::
     }
   }
 }
-
-#include "ku_groupldap.moc"

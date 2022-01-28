@@ -31,8 +31,8 @@ public:
   KU_GroupFiles( KU_PrefsBase *cfg );
   virtual ~KU_GroupFiles();
 
-  virtual bool reload();
-  virtual bool dbcommit();
+  virtual bool reload() override;
+  virtual bool dbcommit() override;
 
 private:
   int gr_backuped;

@@ -509,5 +509,3 @@ bool KU_MainView::updateGroups()
 
   return ret;
 }
-
-#include "ku_mainview.moc"

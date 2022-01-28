@@ -51,7 +51,7 @@ public:
   void mergeUser( const KU_User &user, KU_User &newuser );
 
 protected slots:
-  virtual void accept();
+  virtual void accept() override;
   void setpwd();
   void changed(); // Change to misc settings
   void cbposixChanged(); // Change to diaable POSIX account info

@@ -361,11 +361,7 @@ void KU_UserLDAP::createModStruct( const KU_User &user, int oldindex, KLDAP::Lda
   cn = mCfg->ldapcnfullname() ? user.getFullName() : user.getName();
   if ( cn.isEmpty() ) cn = user.getName();
 
-  gecos = QString::fromLatin1("%1,%2,%3,%4")
-    .arg(user.getFullName())
-    .arg(user.getOffice1())
-    .arg(user.getOffice2())
-    .arg(user.getAddress());
+  gecos = QString::fromLatin1("%1,%2,%3,%4").arg(user.getFullName(), user.getOffice1(), user.getOffice2(), user.getAddress());
 
   samflags = QLatin1String( "[U" );
   samflags += user.getDisabled() ? QLatin1Char( 'D' ) : QLatin1Char( ' ' );
@@ -580,5 +576,3 @@ bool KU_UserLDAP::dbcommit()
   delete mProg;
   return true;
 }
-
-#include "ku_userldap.moc"

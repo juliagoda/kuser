@@ -29,9 +29,9 @@ public:
   KU_UserSystem(KU_PrefsBase *cfg);
   virtual ~KU_UserSystem();
 
-  virtual bool dbcommit() { return true; }
-  virtual bool reload();
-  virtual void createPassword( KU_User & /*user*/, const QString & /*password*/ ) {}
+  virtual bool dbcommit() override { return true; }
+  virtual bool reload() override;
+  virtual void createPassword( KU_User & /*user*/, const QString & /*password*/ ) override {}
 
 private:
 

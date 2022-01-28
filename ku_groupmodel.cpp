@@ -91,7 +91,9 @@ QVariant KU_GroupModel::data( const QModelIndex & index, int role ) const
 void KU_GroupModel::commitDel()
 {
 //Must do the deleting from the bigger indexes to the smaller ones
-  qSort( KU_Global::groups()->mDelSucc );
+
+    QList<int> groups = KU_Global::groups()->mDelSucc;
+  std::sort( groups.begin(), groups.end() );
   for ( int i = KU_Global::groups()->mDelSucc.count()-1; i >= 0; i-- ) {
     removeRows(KU_Global::groups()->mDelSucc.at(i), 1);
   }
