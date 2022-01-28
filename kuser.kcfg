@@ -90,7 +90,7 @@
     <entry name="sexpire" type="DateTime">
       <label>sexpire</label>
       <whatsthis>This setting is for specifying a date when user accounts will expire.</whatsthis>
-      <default code="true">QDate(1970,1,1).startOfDay()</default>
+      <default code="true">QDateTime(QDate(1970,1,1))</default>
     </entry>
     <entry name="sneverexpire" type="Bool">
       <label>sneverexpire</label>
