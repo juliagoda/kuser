@@ -12,7 +12,7 @@ on:
         - 'pics/*.cmake'
         - '*.kcfgc'
         - 'CMakeLists.txt'
-        - '.github/workflows/cmake.yaml'
+        - '.github/workflows/cmake.yml'
   pull_request:
       branches: [ master ]
       paths:
@@ -23,7 +23,7 @@ on:
         - 'toolbar/*.cmake'
         - 'pics/*.cmake'
         - 'CMakeLists.txt'
-        - '.github/workflows/cmake.yaml'
+        - '.github/workflows/cmake.yml'
 
 jobs:
   build:
