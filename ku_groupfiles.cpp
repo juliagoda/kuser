@@ -215,7 +215,7 @@ bool KU_GroupFiles::save()
     tmpGe += QLatin1Char( ':' ) +
             group.getPwd() + QLatin1Char( ':' ) +
             QString::number( group.getGID() ) + QLatin1Char( ':' );
-    tmpSe = group.getName() + QLatin1String( ":!::" );	//krazy:exclude=doublequote_chars
+    tmpSe = group.getName() + QLatin1String( ":!::" );
     for (uint j=0; j<group.count(); j++) {
        if (j != 0) {
          tmpGe += QLatin1Char( ',' );

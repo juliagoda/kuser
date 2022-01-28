@@ -47,7 +47,6 @@ KU_ConfigDlg::KU_ConfigDlg( KCoreConfigSkeleton *config, QWidget *parent, const 
 {
   setFaceType(List);
   setStandardButtons(QDialogButtonBox::RestoreDefaults | QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help );
-  //setDefaultButton(Ok);
   setModal(true);
   QTabWidget *page1 = new QTabWidget( this );
   {
@@ -144,10 +143,8 @@ void KU_ConfigDlg::slotQueryClicked()
   _url.setExtension( QLatin1String( "x-dir" ), QLatin1String( "base" ) );
   _url.setFilter( filter );
 
-  //kDebug() << "sendQuery url: " << _url.prettyUrl();
   mLdif.startParsing();
   KIO::Job *job = KIO::get( _url, KIO::Reload, KIO::HideProgressInfo );
-//  job->addMetaData("no-auth-prompt","true");
   connect( job, SIGNAL(data(KIO::Job*,QByteArray)),
     this, SLOT(loadData(KIO::Job*,QByteArray)) );
   connect( job, SIGNAL(result(KJob*)),

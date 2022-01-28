@@ -68,7 +68,6 @@ KU_SelectConn::KU_SelectConn(const QString &selected, QWidget *parent) :
       it = conns.erase( it );
   }
   mCombo->insertItems( 0, conns );
-  //TODO i18n ?
   if ( mCombo->count() == 0 ) mCombo->addItem( QLatin1String( "default" ) );
   mCombo->setCurrentIndex( sel );
   mSelected = connSelected();
@@ -140,7 +139,6 @@ void KU_SelectConn::slotUser1()
   KSharedConfig::openConfig()->sync();
   mCombo->removeItem( mCombo->currentIndex() );
   if ( mCombo->count() == 0 ) {
-      //TODO i18n ?
     mCombo->addItem( QLatin1String( "default" ) );
     mCombo->setCurrentIndex( 0 );
   }

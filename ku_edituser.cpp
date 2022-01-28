@@ -114,11 +114,9 @@ void KU_EditUser::initDlg()
     frontlayout = layout;
 
     lbuser = new QLabel(frame);
-//    whatstr = i18n("WHAT IS THIS: User login");
     addRow(frame, layout, row++, lbuser, i18n("User login:"), whatstr, false, false);
 
     leid = new KLineEdit(frame);
-//    whatstr = i18n("WHAT IS THIS: User Id");
     leid->setValidator(new QIntValidator(frame));
     addRow(frame, layout, row++, leid, i18n("&User ID:"), whatstr);
     connect(leid, SIGNAL(textChanged(QString)), this, SLOT(changed()));
@@ -131,19 +129,16 @@ void KU_EditUser::initDlg()
 
 
     lefname = new KLineEdit(frame);
-//    whatstr = i18n("WHAT IS THIS: Full Name");
     addRow(frame, layout, row++, lefname, i18n("Full &name:"), whatstr);
     connect(lefname, SIGNAL(textChanged(QString)), this, SLOT(changed()));
     lefname->setFocus();
 
     if ( KU_Global::users()->getCaps() & KU_Users::Cap_InetOrg ) {
       lesurname = new KLineEdit(frame);
-//    whatstr = i18n("WHAT IS THIS: Surname");
       addRow(frame, layout, row++, lesurname, i18n("Surname:"), whatstr);
       connect(lesurname, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
       lemail = new KLineEdit(frame);
-//    whatstr = i18n("WHAT IS THIS: Email");
       addRow(frame, layout, row++, lemail, i18n("Email address:"), whatstr);
       connect(lemail, SIGNAL(textChanged(QString)), this, SLOT(changed()));
     }
@@ -157,12 +152,10 @@ void KU_EditUser::initDlg()
     leshell->insertItems( 1, shells );
     connect(leshell, SIGNAL(activated(QString)), this, SLOT(changed()));
     connect(leshell, SIGNAL(editTextChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Login Shell");
     addRow(frame, layout, row++, leshell, i18n("&Login shell:"), whatstr);
 
     lehome = new KLineEdit(frame);
     connect(lehome, SIGNAL(textChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Home Directory");
     addRow(frame, layout, row++, lehome, i18n("&Home folder:"), whatstr);
 
     // FreeBSD appears to use the comma separated fields in the GECOS entry
@@ -170,37 +163,30 @@ void KU_EditUser::initDlg()
     if ( KU_Global::users()->getCaps() & KU_Users::Cap_BSD ) {
       leoffice = new KLineEdit(frame);
       connect(leoffice, SIGNAL(textChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Office");
       addRow(frame, layout, row++, leoffice, i18n("&Office:"), whatstr);
 
       leophone = new KLineEdit(frame);
       connect(leophone, SIGNAL(textChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Office Phone");
       addRow(frame, layout, row++, leophone, i18n("Offi&ce Phone:"), whatstr);
 
       lehphone = new KLineEdit(frame);
       connect(lehphone, SIGNAL(textChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Home Phone");
       addRow(frame, layout, row++, lehphone, i18n("Ho&me Phone:"), whatstr);
 
       leclass = new KLineEdit(frame);
       connect(leclass, SIGNAL(textChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Login class");
       addRow(frame, layout, row++, leclass, i18n("Login class:"), whatstr, true);
     } else {
       leoffice1 = new KLineEdit(frame);
       connect(leoffice1, SIGNAL(textChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Office1");
       addRow(frame, layout, row++, leoffice1, i18n("&Office #1:"), whatstr);
 
       leoffice2 = new KLineEdit(frame);
       connect(leoffice2, SIGNAL(textChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Office2");
       addRow(frame, layout, row++, leoffice2, i18n("O&ffice #2:"), whatstr);
 
       leaddress = new KLineEdit(frame);
       connect(leaddress, SIGNAL(textChanged(QString)), this, SLOT(changed()));
-//    whatstr = i18n("WHAT IS THIS: Address");
       addRow(frame, layout, row++, leaddress, i18n("&Address:"), whatstr);
     }
     cbdisabled = new QCheckBox(frame);
@@ -266,43 +252,35 @@ void KU_EditUser::initDlg()
     int row = 0;
 
     lerid = new KLineEdit(frame);
-//  whatstr = i18n("WHAT IS THIS: Rid");
     lerid->setValidator(new QIntValidator(frame));
     addRow(frame, layout, row++, lerid, i18n("RID:"), whatstr);
     connect(lerid, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
     leliscript = new KLineEdit(frame);
-//  whatstr = i18n("WHAT IS THIS: Login script");
     addRow(frame, layout, row++, leliscript, i18n("Login script:"), whatstr);
     connect(leliscript, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
     leprofile = new KLineEdit(frame);
-//  whatstr = i18n("WHAT IS THIS: Login script");
     addRow(frame, layout, row++, leprofile, i18n("Profile path:"), whatstr);
     connect(leprofile, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
     lehomedrive = new KLineEdit(frame);
-//  whatstr = i18n("WHAT IS THIS: Login script");
     addRow(frame, layout, row++, lehomedrive, i18n("Home drive:"), whatstr);
     connect(lehomedrive, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
     lehomepath = new KLineEdit(frame);
-//  whatstr = i18n("WHAT IS THIS: Login script");
     addRow(frame, layout, row++, lehomepath, i18n("Home path:"), whatstr);
     connect(lehomepath, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
     leworkstations = new KLineEdit(frame);
-//  whatstr = i18n("WHAT IS THIS: Login script");
     addRow(frame, layout, row++, leworkstations, i18n("User workstations:"), whatstr);
     connect(leworkstations, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
     ledomain = new KLineEdit(frame);
-//  whatstr = i18n("WHAT IS THIS: Login script");
     addRow(frame, layout, row++, ledomain, i18n("Domain name:"), whatstr);
     connect(ledomain, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
     ledomsid = new KLineEdit(frame);
-//  whatstr = i18n("WHAT IS THIS: Login script");
     addRow(frame, layout, row++, ledomsid, i18n("Domain SID:"), whatstr);
     connect(ledomsid, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 
@@ -319,10 +297,7 @@ void KU_EditUser::initDlg()
     QGridLayout *layout = new QGridLayout( frame );
 
     lstgrp = new QListWidget(frame);
-//    lstgrp->setFullWidth(true); // Single column, full widget width.
-//    lstgrp->addColumn( i18n("Groups") );
     if ( ro ) lstgrp->setSelectionMode( QListWidget::NoSelection );
-//    QString whatstr = i18n("Select the groups that this user belongs to.");
     lstgrp->setWhatsThis( whatstr);
     layout->addWidget( lstgrp, 0, 0, 1, 2 );
     leprigr = new QLabel( i18n("Primary group: "), frame );
@@ -334,7 +309,6 @@ void KU_EditUser::initDlg()
     }
     connect( lstgrp, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(gchanged()) );
   }
-//  connect( this, SIGNAL(okClicked()), SLOT(slotOk()) );
 }
 
 KU_EditUser::KU_EditUser( const QList<int> &selected,
@@ -344,7 +318,6 @@ KU_EditUser::KU_EditUser( const QList<int> &selected,
 {
   setWindowTitle(i18n("User Properties"));
   setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-  //setDefaultButton(QDialogButtonBox::Ok);
   setFaceType(KPageDialog::Tabbed);
   mSelected = selected;
   if ( mSelected.count() > 1 )
@@ -367,7 +340,6 @@ KU_EditUser::KU_EditUser( KU_User &user, bool fixedprivgroup,
 {
   setWindowTitle(i18n("User Properties"));
   setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-  //setDefaultButton(QDialogButtonBox::Ok);
   setModal(true);
   setFaceType(KPageDialog::Tabbed);
 
@@ -628,7 +600,6 @@ void KU_EditUser::loadgroups( bool fixedprivgroup )
           primaryGroup = groupName;
         else
           if ( primaryGroup != groupName ) primaryGroup = QLatin1String( "" );
-//      primaryGroupWasOn = group->lookup_user(user->getName());
         wasprivgr = true;
       }
 
@@ -792,13 +763,13 @@ void KU_EditUser::mergeUser( const KU_User &user, KU_User &newuser )
       ( leshell->currentIndex() == 0 && !ismoreshells ) ||
       ( leshell->currentIndex() == 1 && ismoreshells ) ) {
 
-      newuser.setShell( QString() );	//krazy:exclude=nullstrassign for old broken gcc
+      newuser.setShell( QString() );
     } else {
   // TODO: Check shell.
       newuser.setShell( leshell->currentText() );
     }
   } else
-    newuser.setShell( QString() );	//krazy:exclude=nullstrassign for old broken gcc
+    newuser.setShell( QString() );
 
   newuser.setDisabled( (cbdisabled->checkState() == Qt::PartiallyChecked) ? user.getDisabled() : cbdisabled->isChecked() );
 

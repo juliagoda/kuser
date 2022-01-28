@@ -300,8 +300,6 @@ int KU_User::removeHome()
   return 0;
 }
 
-//TODO: remove at jobs too.
-
 int KU_User::removeCrontabs()
 {
   QString file;

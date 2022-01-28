@@ -200,7 +200,6 @@ void KU_UserLDAP::data( KLDAP::LdapSearch *, const KLDAP::LdapObject& data )
       user.setDomain( val );
     else if ( name == QLatin1String( "sambapwdlastset" ) )
       user.setLastChange( val.toLong() );
-//these new attributes introduced around samba 3.0.6
     else if ( name == QLatin1String( "sambapasswordhistory" ) || name == QLatin1String( "sambalogonhours" ) )
       schemaversion = 1;
 

@@ -186,12 +186,7 @@ void KU_MainView::useradd()
     KMessageBox::sorry( 0, i18n("You have run out of uid space.") );
     return;
   }
-/*
-  if ( samba && (rid = users->first_free_sam()) == 0) {
-    KMessageBox::sorry( 0, i18n("You have run out of user RID space.") );
-    return;
-  }
-*/
+
   if ( samba ) rid = SID::uid2rid( uid );
   bool ok;
   QString name = QInputDialog::getText(nullptr, QString(), i18n("Please type the name of the new user:"), QLineEdit::Normal, QString(), &ok);
@@ -260,7 +255,6 @@ void KU_MainView::useradd()
       }
       qDebug() << "private group GID: " << gid;
       uid_t rid = 0;
-//      if ( samba ) rid = KU_Global::getGroups().first_free_sam();
       if ( samba ) rid = SID::gid2rid( gid );
       if ( gid == KU_Groups::NO_FREE || ( samba && rid == 0 ) ) {
         groups->cancelMods();
@@ -377,13 +371,7 @@ void KU_MainView::grpadd()
     KMessageBox::sorry( 0, i18n("You have run out of gid space.") );
     return;
   }
-/*
-  if ( samba && (rid = KU_Global::getGroups().first_free_sam()) == 0 )
-  {
-    KMessageBox::sorry( 0, i18n("You have run out of group RID space.") );
-    return;
-  }
-*/
+
   KU_Group group;
   group.setGID(gid);
   if ( groups->getCaps() & KU_Groups::Cap_Samba ) {
@@ -418,7 +406,6 @@ void KU_MainView::grpedit()
          group.getSID().isEmpty() ) {
     SID sid;
     sid.setDOM( groups->getDOMSID() );
-//    sid.setRID( KU_Global::getGroups().first_free_sam() );
     sid.setRID( SID::gid2rid( group.getGID() ) );
     group.setSID( sid );
     qDebug() << "The new SID for group " << group.getName() << " is: " << sid.getSID();
