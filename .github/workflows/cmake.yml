@@ -1,0 +1,36 @@
+name: CMake
+
+on:
+  push:
+      branches: [ master ]
+      paths:
+        - '*.cpp'
+        - '*.h'
+        - '*.cmake'
+        - 'icon/*.cmake'
+        - 'toolbar/*.cmake'
+        - 'pics/*.cmake'
+        - '*.kcfgc'
+  pull_request:
+      branches: [ master ]
+      paths:
+        - '*.cpp'
+        - '*.h'
+        - '*.cmake'
+        - 'icon/*.cmake'
+        - 'toolbar/*.cmake'
+        - 'pics/*.cmake'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: initialize
+        uses: actions/checkout@v2
+      - name: install dependencies
+        run: sudo apt install -y extra-cmake-modules pkg-config kdoctools-dev libkf5kio-dev libkf5widgetsaddons-dev libkf5coreaddons-dev libkf5config-dev libkf5xmlgui-dev libkf5declarative-dev
+      - name: run cmake
+        run: cmake .
+      - name: run make
+        run: make
+      
