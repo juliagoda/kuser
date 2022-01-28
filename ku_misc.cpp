@@ -40,6 +40,7 @@
 #include <kmessagebox.h>
 #include <krandom.h>
 #include <QDebug>
+#include <QRandomGenerator>
 #include <QLocale>
 #include <KLocalizedString>
 
