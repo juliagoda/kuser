@@ -4,7 +4,7 @@ project(kuser)
 
 set(VERSION "v17.0.0" )
 set(RELEASE_NAME "Bleeding Edge")
-set (QT5_MIN_VERSION "5.15")
+set (QT5_MIN_VERSION "5.12.8")
 
 # search packages used by KDE
 find_package(ECM 1.3.0 REQUIRED NO_MODULE)
