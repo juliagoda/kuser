@@ -160,4 +160,3 @@ bool KU_AddUser::checkMailBox()
 
   return false;
 }
-
