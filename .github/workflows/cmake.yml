@@ -11,6 +11,7 @@ on:
         - 'toolbar/*.cmake'
         - 'pics/*.cmake'
         - '*.kcfgc'
+        - '*.kcfg'
         - 'CMakeLists.txt'
         - '.github/workflows/cmake.yml'
   pull_request:
@@ -22,6 +23,8 @@ on:
         - 'icon/*.cmake'
         - 'toolbar/*.cmake'
         - 'pics/*.cmake'
+        - '*.kcfgc'
+        - '*.kcfg'
         - 'CMakeLists.txt'
         - '.github/workflows/cmake.yml'
 
