@@ -1,0 +1,18 @@
+documentation:
+- 'doc/index.docbook'
+- '*.md'
+
+tests:
+- 'tests/*'
+
+workflow:
+- '.github/workflows/*.yml'
+- '.github/*.yml'
+
+bug:
+- any: ['src/*', 'CMakeLists.txt', 'src/CMakeLists.txt', 'icon/CMakeLists.txt', 'pics/CMakeLists.txt', 'doc/CMakeLists.txt', 'toolbar/CMakeLists.txt']
+
+arrangements:
+- 'icon/*.png'
+- 'pics/*.png'
+- 'toolbar/*.png'
