@@ -10,7 +10,7 @@ workflow:
 - '.github/*.yml'
 
 bug:
-- any: ['src/*', 'CMakeLists.txt', 'src/CMakeLists.txt', 'icon/CMakeLists.txt', 'pics/CMakeLists.txt', 'doc/CMakeLists.txt', 'toolbar/CMakeLists.txt']
+- any: ['src/*', 'include/*.h', 'ui/*.ui', 'configs/*.cmake', 'CMakeLists.txt', 'src/CMakeLists.txt', 'icon/CMakeLists.txt', 'pics/CMakeLists.txt', 'doc/CMakeLists.txt', 'toolbar/CMakeLists.txt']
 
 arrangements:
 - 'icon/*.png'
