@@ -3,7 +3,6 @@ cmake_policy(SET CMP0063 NEW)
 project(kuser)
 
 set(VERSION "v17.0.0" )
-set(RELEASE_NAME "Bleeding Edge")
 set (QT5_MIN_VERSION "5.12.8")
 
 # search packages used by KDE
@@ -39,6 +38,8 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0054 NEW)
 endif(COMMAND cmake_policy)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 include(CheckIncludeFiles)
 include(KDEInstallDirs)
 include(ECMInstallIcons)
@@ -60,7 +61,7 @@ include(CheckIncludeFiles)
 
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
-add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+add_definitions( -DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
 include_directories (${QDBUS_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 
@@ -75,7 +76,6 @@ add_subdirectory(toolbar)
 add_subdirectory(icon)
 add_subdirectory(doc)
 
-# use the project-specific _SOURCE_DIR variable (set by the project() call above), Alex
 include_directories(${kuser_SOURCE_DIR})
 
 set(KU_HOMEDIR_PERM 0700 CACHE STRING "Default home directory permissions")
@@ -102,60 +102,6 @@ check_function_exists(fgetspent HAVE_FGETSPENT)
 
 test_big_endian(WORDS_BIGENDIAN)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ku_config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/ku_config.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/configs/ku_config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/ku_config.h)
 
-
-set(kuser_SRCS
-	ku_mainwidget.cpp
-	ku_mainview.cpp
-	ku_edituser.cpp
-	ku_editgroup.cpp
-	ku_usermodel.cpp
-	ku_groupmodel.cpp
-	ku_deluser.cpp
-	ku_user.cpp
-	ku_group.cpp
-	ku_main.cpp
-	ku_misc.cpp
-	ku_pwdlg.cpp
-	ku_adduser.cpp
-	ku_configdlg.cpp
-	ku_global.cpp
-	sid.cpp
-	ku_userfiles.cpp
-	ku_groupfiles.cpp
-	ku_userldap.cpp
-	ku_groupldap.cpp
-	ku_usersystem.cpp
-	ku_groupsystem.cpp
-	ku_selectconn.cpp
-)
-
-kconfig_add_kcfg_files(kuser_SRCS ku_prefs.kcfgc)
-
-qt5_wrap_ui(kuser_SRCS ku_filessettings.ui ku_generalsettings.ui ku_ldapsettings.ui ku_ldapsamba.ui ku_passwordpolicy.ui)
-
-add_executable(kuser ${kuser_SRCS})
-
-target_link_libraries(kuser KF5::DocTools KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets KF5::KIONTLM KF5::Ldap KF5::Su Qt5::Widgets KF5::Completion KF5::I18n KF5::CoreAddons KF5::XmlGui KF5::ConfigCore KF5::ConfigGui)
-if(HAVE_CRYPT_LIBRARY)
-	target_link_libraries(kuser crypt)
-endif(HAVE_CRYPT_LIBRARY)
-
-message("INSTALL_TARGETS_DEFAULT_ARGS PATH: ${INSTALL_TARGETS_DEFAULT_ARGS}")
-install(TARGETS kuser ${INSTALL_TARGETS_DEFAULT_ARGS})
-
-
-########### install files ###############
-message("XDG_APPS_INSTALL_DIR PATH: ${XDG_APPS_INSTALL_DIR}")
-message("KCFG_INSTALL_DIR PATH: ${KCFG_INSTALL_DIR}")
-
-if(BUILD_WITH_QT6)
-    install(PROGRAMS kuser.desktop DESTINATION share/applications)
-    install(FILES kuserui.rc DESTINATION ${DATA_INSTALL_DIR}/kuser)
-    install(FILES kuser.kcfg  DESTINATION share/config.kcfg)
-else()
-    install(PROGRAMS kuser.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-    install(FILES kuserui.rc DESTINATION ${DATA_INSTALL_DIR}/kuser)
-    install(FILES kuser.kcfg  DESTINATION ${KCFG_INSTALL_DIR})
-endif()
+add_subdirectory(src)
