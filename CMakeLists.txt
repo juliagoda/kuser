@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.16.0)
 cmake_policy(SET CMP0063 NEW)
-project(kuser)
+project(kuser CXX VERSION 17.0.0)
 
-set(VERSION "v17.0.0" )
+set(VERSION "v${CMAKE_PROJECT_VERSION}" )
 set (QT5_MIN_VERSION "5.12.8")
 
 # search packages used by KDE
