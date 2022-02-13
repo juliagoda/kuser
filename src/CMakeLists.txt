@@ -36,7 +36,7 @@ set(UI
 
 kconfig_add_kcfg_files(SOURCES ${PROJECT_SOURCE_DIR}/configs/ku_prefs.kcfgc)
 
-qt_wrap_ui(UIC ${UI})
+qt5_wrap_ui(UIC ${UI})
 
 add_executable(kuser ku_main.cpp ${SOURCES} ${HEADERS} ${UIC})
 
