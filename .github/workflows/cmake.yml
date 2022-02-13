@@ -39,8 +39,8 @@ jobs:
         uses: actions/checkout@v2
       - name: install dependencies
         run: |
-        sudo apt --fix-missing update
-        sudo apt install -f -y gettext extra-cmake-modules pkg-config kdoctools-dev libkf5kio-dev libkf5widgetsaddons-dev libkf5coreaddons-dev libkf5config-dev libkf5xmlgui-dev libkf5declarative-dev libkf5completion-dev libkf5su-dev libkf5ldap-dev libkf5doctools-dev qt5-default
+          sudo apt --fix-missing update
+          sudo apt install -f -y gettext extra-cmake-modules pkg-config kdoctools-dev libkf5kio-dev libkf5widgetsaddons-dev libkf5coreaddons-dev libkf5config-dev libkf5xmlgui-dev libkf5declarative-dev libkf5completion-dev libkf5su-dev libkf5ldap-dev libkf5doctools-dev qt5-default
       - name: run cmake
         run: cmake .
       - name: run make
